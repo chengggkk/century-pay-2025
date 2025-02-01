@@ -2,7 +2,9 @@
 // Next.js Edge API Route Handlers: https://nextjs.org/docs/app/building-your-application/routing/router-handlers#edge-and-nodejs-runtimes
 
 import { InteractionResponseType, InteractionType } from 'discord-interactions';
-import { NextResponse, type NextRequest } from 'next/server'
+import { type NextRequest } from 'next/server'
+import { test } from './test';
+import { agentkit } from './agentkit';
 
 export const runtime = 'edge'
 
@@ -17,17 +19,15 @@ export async function POST(request: NextRequest) {
         if (type === InteractionType.APPLICATION_COMMAND) {
             const { name, options, custom_id } = data;
             const userId = member?.user?.id || user?.id;
-    
+
             if (name === "test") {
-                return NextResponse.json({
-                    type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
-                    data: {
-                        content: "hello world " + userId,
-                        flags: 64,
-                    },
-                });
+                return test(userId);
+            } else if (name === "agentkit") {
+                const response = await agentkit(options);
+                return response;
             }
         }
+
     } catch (error) {
         console.error(error);
         return new Response(JSON.stringify({ error: 'Internal server error' }), { status: 500 });

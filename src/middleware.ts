@@ -29,5 +29,5 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-    matcher: '/api/:path*', // Only for API routes
+    matcher: '/api/interactions/:path*', // Only for API routes
 };

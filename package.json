@@ -3,19 +3,23 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "register": "npx ts-node register.ts",
     "dev": "next dev --turbopack",
     "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
-    "register": "npx ts-node register.ts"
+    "start": "yarn register && next start",
+    "lint": "next lint"
   },
   "dependencies": {
+    "@coinbase/cdp-langchain": "^0.0.15",
+    "@langchain/langgraph": "^0.2.44",
+    "@langchain/openai": "^0.4.2",
     "discord-interactions": "^4.1.0",
     "discord.js": "^14.17.3",
     "dotenv": "^16.4.7",
     "next": "15.1.6",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "zod": "^3.24.1"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
