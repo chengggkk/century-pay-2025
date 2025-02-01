@@ -61,6 +61,25 @@
     secp256k1 "^5.0.0"
     viem "^2.21.26"
 
+"@coinbase/coinbase-sdk@^0.17.0":
+  version "0.17.0"
+  resolved "https://registry.yarnpkg.com/@coinbase/coinbase-sdk/-/coinbase-sdk-0.17.0.tgz#dd06d6be36cbba38dcdb4239d95ee7cb092aa431"
+  integrity sha512-YdEO6kbi0EDTzmPBqKtvDR/78P2Zw72rLmM6LS6yGZuTnfrXRhYR7/xAY0Fesoc1BcCL4eodwc+txUxrpdYCcg==
+  dependencies:
+    "@scure/bip32" "^1.4.0"
+    abitype "^1.0.6"
+    axios "^1.6.8"
+    axios-mock-adapter "^1.22.0"
+    axios-retry "^4.4.1"
+    bip32 "^4.0.0"
+    bip39 "^3.1.0"
+    decimal.js "^10.4.3"
+    dotenv "^16.4.5"
+    ethers "^6.12.1"
+    node-jose "^2.2.0"
+    secp256k1 "^5.0.0"
+    viem "^2.21.26"
+
 "@discordjs/builders@^1.10.0":
   version "1.10.0"
   resolved "https://registry.yarnpkg.com/@discordjs/builders/-/builders-1.10.0.tgz#de0811ea22a3ecb893a3e37923760c9e9e722d74"
@@ -379,7 +398,7 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
-"@langchain/core@^0.3.19":
+"@langchain/core@^0.3.19", "@langchain/core@^0.3.37":
   version "0.3.37"
   resolved "https://registry.yarnpkg.com/@langchain/core/-/core-0.3.37.tgz#9ea7985c6cdaa075b02241ba3e6ba76c47454daf"
   integrity sha512-LFk9GqHxcyCFx0oXvCBP7vDZIOUHYzzNU7JR+2ofIMnfkBLzcCKzBLySQDfPtd13PrpGHkaeOeLq8H1Tqi9lSw==
@@ -1339,7 +1358,7 @@ decamelize@1.2.0:
   resolved "https://registry.yarnpkg.com/decamelize/-/decamelize-1.2.0.tgz#f6534d15148269b20352e7bee26f501f9a191290"
   integrity sha512-z2S+W9X73hAUUki+N+9Za2lBlun89zigOyGrsax+KUQ6wKW4ZoWpEYBkGhQjwAjjDCkWxhY0VKEhk8wzY7F5cA==
 
-decimal.js@^10.4.3:
+decimal.js@^10.4.3, decimal.js@^10.5.0:
   version "10.5.0"
   resolved "https://registry.yarnpkg.com/decimal.js/-/decimal.js-10.5.0.tgz#0f371c7cf6c4898ce0afb09836db73cd82010f22"
   integrity sha512-8vDa8Qxvr/+d94hSh5P3IJwI5t8/c0KsMp+g8bNw9cY2icONa5aPfvKeieW1WlG0WQYwwhJ7mjui2xtiePQSXw==
@@ -3794,7 +3813,7 @@ uuid@^9.0.0:
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-9.0.1.tgz#e188d4c8853cc722220392c424cd637f32293f30"
   integrity sha512-b+1eJOlsR9K8HJpow9Ok3fiWOWSIcIzXodvv0rQjVoOVNpWMpxf1wZNpt4y9h10odCNrqnYp1OBzRktckBe3sA==
 
-viem@^2.21.26, viem@^2.21.51:
+viem@^2.21.26, viem@^2.21.51, viem@^2.22.17:
   version "2.22.17"
   resolved "https://registry.yarnpkg.com/viem/-/viem-2.22.17.tgz#71cb5793d898e7850d440653b0043803c2d00c8d"
   integrity sha512-eqNhlPGgRLR29XEVUT2uuaoEyMiaQZEKx63xT1py9OYsE+ZwlVgjnfrqbXad7Flg2iJ0Bs5Hh7o0FfRWUJGHvg==

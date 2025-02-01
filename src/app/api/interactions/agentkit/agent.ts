@@ -1,5 +1,5 @@
-// import { CdpAgentkit } from "@coinbase/cdp-agentkit-core";
-import { CdpToolkit } from "@coinbase/cdp-langchain";
+import { CdpAgentkit } from "./cdp-agentkit-core";
+import { CdpToolkit } from "./cdp-langchain";
 import { MemorySaver } from "@langchain/langgraph";
 import { tool } from "@langchain/core/tools";
 import { createReactAgent } from "@langchain/langgraph/prebuilt";
@@ -57,11 +57,10 @@ export async function initializeAgent() {
 
 
   // Initialize CDP AgentKit
-  //   const agentkit = await CdpAgentkit.configureWithWallet(config);
-
+  const agentkit = await CdpAgentkit.configureWithWallet(config);
   // Initialize CDP AgentKit Toolkit and get tools
-  //   const cdpToolkit = new CdpToolkit(agentkit);
-  //   const tools = cdpToolkit.getTools();
+  const cdpToolkit = new CdpToolkit(agentkit as any);
+  const tools = cdpToolkit.getTools();
 
   // Store buffered conversation history in memory
   const memory = new MemorySaver();
@@ -70,7 +69,7 @@ export async function initializeAgent() {
   // Create React Agent using the LLM and CDP AgentKit tools
   const agent = createReactAgent({
     llm,
-    tools: [getWeather],
+    tools,
     checkpointSaver: memory,
     messageModifier:
       "You are a helpful agent that can interact onchain using the Coinbase Developer Platform AgentKit...",
@@ -82,65 +81,3 @@ export async function initializeAgent() {
 
   return { agent, config: agentConfig };
 }
-
-// import { HumanMessage } from "@langchain/core/messages";
-// import * as readline from "readline";
-
-// /**
-//  * Run the agent interactively based on user input
-//  *
-//  * @param agent - The agent executor
-//  * @param config - Agent configuration
-//  */
-// // eslint-disable-next-line @typescript-eslint/no-explicit-any
-// async function runChatMode(agent: any, config: any) {
-//   console.log("Starting chat mode... Type 'exit' to end.");
-
-//   const rl = readline.createInterface({
-//     input: process.stdin,
-//     output: process.stdout,
-//   });
-
-//   const question = (prompt: string): Promise<string> =>
-//     new Promise(resolve => rl.question(prompt, resolve));
-
-//   try {
-//     // eslint-disable-next-line no-constant-condition
-//     while (true) {
-//       const userInput = await question("\nPrompt: ");
-
-//       if (userInput.toLowerCase() === "exit") {
-//         break;
-//       }
-
-//       const stream = await agent.stream({ messages: [new HumanMessage(userInput)] }, config);
-
-//       for await (const chunk of stream) {
-//         if ("agent" in chunk) {
-//           console.log(chunk.agent.messages[0].content);
-//         } else if ("tools" in chunk) {
-//           console.log(chunk.tools.messages[0].content);
-//         }
-//         console.log("-------------------");
-//       }
-//     }
-//   } catch (error) {
-//     if (error instanceof Error) {
-//       console.error("Error:", error.message);
-//     }
-//     process.exit(1);
-//   } finally {
-//     rl.close();
-//   }
-// }
-
-// // Start the agent
-// if (require.main === module) {
-//   console.log("Starting Agent...");
-//   initializeAgent()
-//     .then(({ agent, config }) => runChatMode(agent, config))
-//     .catch(error => {
-//       console.error("Fatal error:", error);
-//       process.exit(1);
-//     });
-// }
