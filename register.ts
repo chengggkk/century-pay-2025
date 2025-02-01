@@ -1,5 +1,6 @@
 
-const { dotenv } = require("dotenv/config");
+import dotenv from "dotenv";
+dotenv.config();
 
 async function DiscordRequest(endpoint: string, options: any) {
     const url = "https://discord.com/api/v10/" + endpoint;
@@ -41,9 +42,24 @@ const TEST_COMMAND = {
     type: 1, // CHAT_INPUT
 };
 
+const AGENTKIT_COMMAND = {
+    name: "agentkit",
+    description: "Interact with the agentkit",
+    type: 1, // CHAT_INPUT
+    options: [
+        {
+            type: 3, // STRING
+            name: "prompt",
+            description: "Prompt to send to the agentkit",
+            required: true,
+        },
+    ],
+};
+
 // Update command list
 const ALL_COMMANDS = [
     TEST_COMMAND,
+    AGENTKIT_COMMAND
 ];
 
 // Install commands
