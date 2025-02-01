@@ -6,13 +6,12 @@ import { NextResponse, type NextRequest } from 'next/server'
 import { test } from './test';
 import { agentkit } from './agentkit';
 
-export const runtime = 'edge'
+// export const runtime = 'edge'
 
 export async function POST(request: NextRequest) {
     try {
         const res = await request.json();
         const { type, data, member, user, channel_id } = res;
-        console.log(res);
         if (type === InteractionType.PING) {
             return new Response(JSON.stringify({ type: InteractionResponseType.PONG }));
         }
@@ -24,7 +23,7 @@ export async function POST(request: NextRequest) {
             if (name === "test") {
                 return test(userId);
             } else if (name === "agentkit") {
-                agentkit(channel_id, options); // run in the background
+                await agentkit(channel_id, options); // run in the background
                 return NextResponse.json({
                     type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
                     data: {

@@ -10,15 +10,18 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@coinbase/cdp-langchain": "^0.0.15",
+    "@coinbase/coinbase-sdk": "^0.17.0",
+    "@langchain/core": "^0.3.37",
     "@langchain/langgraph": "^0.2.44",
     "@langchain/openai": "^0.4.2",
+    "decimal.js": "^10.5.0",
     "discord-interactions": "^4.1.0",
     "discord.js": "^14.17.3",
     "dotenv": "^16.4.7",
     "next": "15.1.6",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "viem": "^2.22.17",
     "zod": "^3.24.1"
   },
   "devDependencies": {
