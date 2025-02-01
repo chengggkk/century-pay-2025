@@ -24,8 +24,9 @@ export const FARCASTER_ACTIONS = getAllFarcasterActions();
  * All Farcaster action types.
  */
 export {
-  FarcasterAction,
-  FarcasterActionSchemaAny,
   FarcasterAccountDetailsAction,
   FarcasterPostCastAction,
+}; export type {
+  FarcasterAction,
+  FarcasterActionSchemaAny
 };

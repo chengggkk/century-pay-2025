@@ -31,10 +31,12 @@ export const TWITTER_ACTIONS = getAllTwitterActions();
  * All Twitter (X) action types.
  */
 export {
-  TwitterAction,
-  TwitterActionSchemaAny,
   AccountDetailsAction,
   AccountMentionsAction,
   PostTweetAction,
   PostTweetReplyAction,
+};
+export type {
+  TwitterAction,
+  TwitterActionSchemaAny
 };

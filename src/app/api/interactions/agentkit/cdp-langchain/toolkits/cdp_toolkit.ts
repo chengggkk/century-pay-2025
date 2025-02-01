@@ -56,7 +56,13 @@ export class CdpToolkit extends Toolkit {
   constructor(agentkit: CdpAgentkit) {
     super();
     const actions = CDP_ACTIONS;
-    const tools = actions.map(action => new CdpTool(action, agentkit));
+    const tools = actions.map(action => {
+      const adaptedAction = {
+        ...action,
+        func: (wallet: any, args: any) => action.func(wallet, args)
+      };
+      return new CdpTool(adaptedAction, agentkit as any);
+    });
     this.tools = tools;
   }
 }

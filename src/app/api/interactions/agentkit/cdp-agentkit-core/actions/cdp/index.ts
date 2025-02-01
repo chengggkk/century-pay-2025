@@ -49,8 +49,6 @@ export const CDP_ACTIONS = getAllCdpActions()
   .concat(WOW_ACTIONS);
 
 export {
-  CdpAction,
-  CdpActionSchemaAny,
   AddressReputationAction,
   GetWalletDetailsAction,
   DeployNftAction,
@@ -64,5 +62,9 @@ export {
   TradeAction,
   TransferAction,
   TransferNftAction,
-  WrapEthAction,
+  WrapEthAction
+}; export type {
+  CdpAction,
+  CdpActionSchemaAny
 };
+
