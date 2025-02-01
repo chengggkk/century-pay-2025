@@ -1,5 +1,5 @@
 import { StructuredTool } from "@langchain/core/tools";
-import { CdpAgentkit, CdpAction, CdpActionSchemaAny } from "@coinbase/cdp-agentkit-core";
+import { CdpAgentkit, CdpAction, CdpActionSchemaAny } from "../../cdp-agentkit-core";
 import { z } from "zod";
 
 /**

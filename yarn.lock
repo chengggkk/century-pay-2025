@@ -22,45 +22,6 @@
   resolved "https://registry.yarnpkg.com/@cfworker/json-schema/-/json-schema-4.1.1.tgz#4a2a3947ee9fa7b7c24be981422831b8674c3be6"
   integrity sha512-gAmrUZSGtKc3AiBL71iNWxDsyUC5uMaKKGdvzYsBoTW/xi42JQHl7eKV2OYzCUqvc+D2RCcf7EXY2iCyFIk6og==
 
-"@coinbase/cdp-agentkit-core@^0.0.14":
-  version "0.0.14"
-  resolved "https://registry.yarnpkg.com/@coinbase/cdp-agentkit-core/-/cdp-agentkit-core-0.0.14.tgz#816fe0298fc8390ba2a3449c9a2acb6364d4885b"
-  integrity sha512-1MqlA8EQEiF+IQJ/cGk01Bug7/fxX9RFK+4UDBP27OkoZM8183KKEFU0qtRMwQCpev68+Oc7jWiaLtFEQGTn+A==
-  dependencies:
-    "@coinbase/coinbase-sdk" "^0.15.0"
-    twitter-api-v2 "^1.18.2"
-    viem "^2.21.51"
-    zod "^3.23.8"
-
-"@coinbase/cdp-langchain@^0.0.15":
-  version "0.0.15"
-  resolved "https://registry.yarnpkg.com/@coinbase/cdp-langchain/-/cdp-langchain-0.0.15.tgz#ed57c4072cd043474f9813e85c645fe1aa4d29fc"
-  integrity sha512-vDfpS/Xv4eh8cN1OWsiCOdLKhWa0UNebe5IcXFECGF9ZhDWN1huUNmra8E8sYKAJd2Q5fQl8rz2CWPzBIOb+JA==
-  dependencies:
-    "@coinbase/cdp-agentkit-core" "^0.0.14"
-    "@coinbase/coinbase-sdk" "^0.15.0"
-    "@langchain/core" "^0.3.19"
-    zod "^3.22.4"
-
-"@coinbase/coinbase-sdk@^0.15.0":
-  version "0.15.0"
-  resolved "https://registry.yarnpkg.com/@coinbase/coinbase-sdk/-/coinbase-sdk-0.15.0.tgz#5933d3c70f79aa5ce65bba228ac8532d4583bb47"
-  integrity sha512-i2YH/E/HcvUM+VgT+245CzcAyJ6kQg8PJDHBHsFwFdk2vAn+iQn0bjt+C9kgTWvzxUuJA4koHgkcGpdRQa2F/A==
-  dependencies:
-    "@scure/bip32" "^1.4.0"
-    abitype "^1.0.6"
-    axios "^1.6.8"
-    axios-mock-adapter "^1.22.0"
-    axios-retry "^4.4.1"
-    bip32 "^4.0.0"
-    bip39 "^3.1.0"
-    decimal.js "^10.4.3"
-    dotenv "^16.4.5"
-    ethers "^6.12.1"
-    node-jose "^2.2.0"
-    secp256k1 "^5.0.0"
-    viem "^2.21.26"
-
 "@coinbase/coinbase-sdk@^0.17.0":
   version "0.17.0"
   resolved "https://registry.yarnpkg.com/@coinbase/coinbase-sdk/-/coinbase-sdk-0.17.0.tgz#dd06d6be36cbba38dcdb4239d95ee7cb092aa431"
@@ -398,7 +359,7 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
-"@langchain/core@^0.3.19", "@langchain/core@^0.3.37":
+"@langchain/core@^0.3.37":
   version "0.3.37"
   resolved "https://registry.yarnpkg.com/@langchain/core/-/core-0.3.37.tgz#9ea7985c6cdaa075b02241ba3e6ba76c47454daf"
   integrity sha512-LFk9GqHxcyCFx0oXvCBP7vDZIOUHYzzNU7JR+2ofIMnfkBLzcCKzBLySQDfPtd13PrpGHkaeOeLq8H1Tqi9lSw==
@@ -3694,11 +3655,6 @@ tslib@^2.4.0, tslib@^2.6.2, tslib@^2.6.3, tslib@^2.8.0:
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.8.1.tgz#612efe4ed235d567e8aba5f2a5fab70280ade83f"
   integrity sha512-oJFu94HQb+KVduSUQL7wnpmqnfmLsOA/nAh6b6EH0wCEoK0/mPeXU6c3wKDV83MkOuHPRHtSXKKU99IBazS/2w==
 
-twitter-api-v2@^1.18.2:
-  version "1.19.0"
-  resolved "https://registry.yarnpkg.com/twitter-api-v2/-/twitter-api-v2-1.19.0.tgz#b9a49bc79b4ba13c4b59cc02192a84aed8ebf832"
-  integrity sha512-jfG4aapNPM9+4VxNxn0TXvD8Qj8NmVx6cY0hp5K626uZ41qXPaJz33Djd3y6gfHF/+W29+iZz0Y5qB869d/akA==
-
 type-check@^0.4.0, type-check@~0.4.0:
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/type-check/-/type-check-0.4.0.tgz#07b8203bfa7056c0657050e3ccd2c37730bab8f1"
@@ -3813,7 +3769,7 @@ uuid@^9.0.0:
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-9.0.1.tgz#e188d4c8853cc722220392c424cd637f32293f30"
   integrity sha512-b+1eJOlsR9K8HJpow9Ok3fiWOWSIcIzXodvv0rQjVoOVNpWMpxf1wZNpt4y9h10odCNrqnYp1OBzRktckBe3sA==
 
-viem@^2.21.26, viem@^2.21.51, viem@^2.22.17:
+viem@^2.21.26, viem@^2.22.17:
   version "2.22.17"
   resolved "https://registry.yarnpkg.com/viem/-/viem-2.22.17.tgz#71cb5793d898e7850d440653b0043803c2d00c8d"
   integrity sha512-eqNhlPGgRLR29XEVUT2uuaoEyMiaQZEKx63xT1py9OYsE+ZwlVgjnfrqbXad7Flg2iJ0Bs5Hh7o0FfRWUJGHvg==
