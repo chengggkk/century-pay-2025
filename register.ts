@@ -62,11 +62,6 @@ const ALL_COMMANDS = [
     AGENTKIT_COMMAND
 ];
 
-// Install commands
-InstallGlobalCommands(process.env.APP_ID, ALL_COMMANDS).catch((error) => {
-    console.error(error);
-});
-
 async function main() {
     await InstallGlobalCommands(process.env.APP_ID, ALL_COMMANDS);
 }
