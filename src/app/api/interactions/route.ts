@@ -23,7 +23,7 @@ export async function POST(request: NextRequest) {
             if (name === "test") {
                 return test(userId);
             } else if (name === "agentkit") {
-                agentkit(channel_id, options); // run in the background
+                await agentkit(channel_id, options); // run in the background
                 return NextResponse.json({
                     type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
                     data: {
