@@ -4,6 +4,7 @@ import WalletModel from "../database/models/wallet";
 import dotenv from "dotenv";
 import { InteractionResponseType } from "discord-interactions";
 import { NextResponse } from "next/server";
+import wallet from "../database/models/wallet";
 
 dotenv.config();
 
@@ -46,12 +47,16 @@ const checkWallet = async (userId: string): Promise<boolean> => {
  * @returns {NextResponse} - Response containing the wallet creation message.
  */
 export const createWallet = async (userId: string) => {
-  if (!(await checkWallet(userId))) {
+  // Check if the wallet already exists
+  const existingWallet = await WalletModel.findOne({ user: userId }).lean().exec() as { wallet: string } | null;
+
+  if (existingWallet) {
+    // Return the existing wallet address
     return NextResponse.json({
       type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
       data: {
-        content: "❌ You already have a wallet!",
-        flags: 64, // Private response
+        content: `❌Already have a wallet \n 👛Your wallet address is: \`${existingWallet.wallet}\``,
+        flags: 64, // Private respons
       },
     });
   }
@@ -59,14 +64,14 @@ export const createWallet = async (userId: string) => {
   try {
     await connectDB();
 
-    // Generate a wallet using CDP AgentKit
+    // Generate a new wallet using CDP AgentKit
     const agentkit = await CdpAgentkit.configureWithWallet({
       networkId: process.env.NETWORK_ID || "base-sepolia",
     });
 
     const generatedWallet = await agentkit.exportWallet();
 
-    // Store wallet in MongoDB
+    // Store the new wallet in MongoDB
     const newWallet = new WalletModel({
       user: userId,
       wallet: generatedWallet,
@@ -74,7 +79,7 @@ export const createWallet = async (userId: string) => {
 
     await newWallet.save();
 
-    // Return response in required format
+    // Return response with the newly created wallet address
     return NextResponse.json({
       type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
       data: {
