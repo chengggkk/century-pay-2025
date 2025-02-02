@@ -91,6 +91,25 @@ const AUTONOME_COMMAND = {
     ],
 };
 
+const SEND_COMMAND = {
+    name: "send",
+    description: "Send money to a user",
+    type: 1, // CHAT_INPUT
+    options: [
+        {
+            type: 3, // STRING
+            name: "to",
+            description: "User to send money to",
+            required: true,
+        },
+        {
+            type: 3, // STRING
+            name: "amount",
+            description: "Amount to send",
+            required: true,
+        },
+    ],
+};
 const COVALENT_COMMAND = new SlashCommandBuilder()
     .setName("covalent")
     .setDescription("Interact with Covalent")
@@ -107,6 +126,7 @@ const ALL_COMMANDS = [
     TWITTER_COMMAND,
     WALLET_COMMAND,
     AUTONOME_COMMAND,
+    SEND_COMMAND,
     COVALENT_COMMAND
 ];
 
@@ -119,3 +139,4 @@ main().then(() => {
 }).catch((error) => {
     console.error("Failed to install commands: ", error);
 });
+
