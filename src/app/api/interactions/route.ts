@@ -6,6 +6,8 @@ import { NextResponse, type NextRequest } from 'next/server'
 import { test } from './test';
 import { agentkit } from './agentkit';
 import { twitter } from './twitter';
+import { createWallet } from './wallet/index';
+import { autonome } from './autonome';
 
 // export const runtime = 'edge'
 
@@ -41,7 +43,21 @@ export async function POST(request: NextRequest) {
                         flags: 64,
                     },
                 });
-            } else {
+            } else if (name === "autonome") {
+                await autonome(channel_id, options);
+                return NextResponse.json({
+                    type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+                    data: {
+                        content: "The Autonome is running",
+                        flags: 64,
+                    },
+                });
+            }
+            else if (name === "wallet") {
+                const response = await createWallet(userId); // Wait for wallet creation
+                return response; // Return the response from createWallet
+            }
+            else {
                 return NextResponse.json({
                     type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
                     data: {
