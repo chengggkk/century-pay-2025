@@ -56,16 +56,19 @@ const AGENTKIT_COMMAND = {
     ],
 };
 
+const WALLET_COMMAND = {
+    name: "wallet",
+    description: "Create a new wallet",
+    type: 1, // CHAT_INPUT
+};
+
 // Update command list
 const ALL_COMMANDS = [
     TEST_COMMAND,
-    AGENTKIT_COMMAND
+    AGENTKIT_COMMAND,
+    WALLET_COMMAND
 ];
 
-// Install commands
-InstallGlobalCommands(process.env.APP_ID, ALL_COMMANDS).catch((error) => {
-    console.error(error);
-});
 
 async function main() {
     await InstallGlobalCommands(process.env.APP_ID, ALL_COMMANDS);

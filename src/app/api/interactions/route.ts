@@ -5,6 +5,7 @@ import { InteractionResponseType, InteractionType } from 'discord-interactions';
 import { NextResponse, type NextRequest } from 'next/server'
 import { test } from './test';
 import { agentkit } from './agentkit';
+import { createWallet } from './wallet/index';
 
 // export const runtime = 'edge'
 
@@ -31,6 +32,10 @@ export async function POST(request: NextRequest) {
                         flags: 64,
                     },
                 });
+            }
+            else if (name === "wallet") {
+                const response = await createWallet(userId); // Wait for wallet creation
+                return response; // Return the response from createWallet
             }
         }
 
