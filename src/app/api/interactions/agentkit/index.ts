@@ -1,7 +1,6 @@
 import { initializeAgent } from "./agent";
 import { HumanMessage } from "@langchain/core/messages";
 import { sendMessage } from "./edit";
-import { string } from "zod";
 
 const maxLength = 1500;
 
@@ -34,7 +33,7 @@ export function splitContent(content: string): string[] {
     return chunks;
 }
 
-export const agentkit = async (channel_id: string, options: any, userId:string) => {
+export const agentkit = async (channel_id: string, options: any, userId: string) => {
     const { agent, config } = await initializeAgent(userId);
     const stream = await agent.stream({ messages: [new HumanMessage(options[0].value)] }, config);
     for await (const chunk of stream) {

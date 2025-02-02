@@ -35,7 +35,7 @@ export async function POST(request: NextRequest) {
                     },
                 });
             } else if (name === "agentkit_twitter") {
-                await twitter(channel_id, options);
+                await twitter(channel_id, options, userId);
                 return NextResponse.json({
                     type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
                     data: {
