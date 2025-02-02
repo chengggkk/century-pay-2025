@@ -1,5 +1,6 @@
 import { z } from "zod";
 import fs from 'fs';
+import { exec } from 'child_process';
 
 function writeToFile(args) {
     const inputs = { a: args.a, b: args.b };
@@ -42,24 +43,38 @@ export const SnarkjsInput = z
 export async function generateSnarkjsProof(
     args: z.infer<typeof SnarkjsInput>,
 ): Promise<string> {
-    const inputs = { a: args.a, b: args.b };
-    writeToFile(inputs);
+    writeToFile(args);
+    return new Promise((resolve, reject) => {
+        exec(
+            "npx snarkjs g16f input.json public/multiplier2.wasm public/multiplier2_final.zkey proof.json public.json",
+            (error, stdout, stderr) => {
+                if (error) {
+                    console.log(`Error: ${error.message}`);
+                    reject(error);
+                    return;
+                }
+                if (stderr) {
+                    console.log(`stderr: ${stderr}`);
+                    reject(new Error(stderr));
+                    return;
+                }
+                console.log(`stdout: ${stdout}`);
 
-    const { exec } = require("child_process");
-    exec("npx snarkjs g16f input.json public/multiplier2.wasm public/multiplier2_final.zkey proof.json public.json", (error, stdout, stderr) => {
-        if (error) {
-            console.log(`error: ${error.message}`);
-            return;
-        }
-        if (stderr) {
-            console.log(`stderr: ${stderr}`);
-            return;
-        }
-        console.log(`stdout: ${stdout}`);
+                try {
+                    const proof = fs.readFileSync("proof.json", "utf8").replace(/\n/g, "").replace(/\\"/g, '"');
+                    const publicSignals = fs.readFileSync("public.json", "utf8").replace(/\n/g, "").replace(/\\"/g, '"');
+
+                    // Cleanup files
+                    fs.unlinkSync("proof.json");
+                    fs.unlinkSync("public.json");
+                    fs.unlinkSync("input.json");
+
+                    resolve(`**Proof**: \n \`\`\`json\n${proof}\n\`\`\` \n **Public Signals**: \n \`\`\`json\n${publicSignals}\n\`\`\``);
+                } catch (fileError) {
+                    reject(fileError);
+                }
+            }
+        );
     });
 
-    const proof = fs.readFileSync('proof.json', 'utf8').replace(/\n/g, '').replace(/\\"/g, '"');
-    const publicSignals = fs.readFileSync('public.json', 'utf8').replace(/\n/g, '').replace(/\\"/g, '"');
-
-    return `**Proof**: \n \`\`\`json\n${proof}\n\`\`\` \n **Public Signals**: \n \`\`\`json\n${publicSignals}\n\`\`\``;
 }
