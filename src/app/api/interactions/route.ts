@@ -67,7 +67,7 @@ export async function POST(request: NextRequest) {
             }
             else if (name === "ipfs") {
                 console.log(resolved.attachments[`${options[0].value}`].url);
-                await ipfs(channel_id,userId,resolved.attachments[`${options[0].value}`].url);
+                await ipfs(channel_id, userId, resolved.attachments[`${options[0].value}`].url);
                 return NextResponse.json({
                     type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
                     data: {
@@ -75,8 +75,7 @@ export async function POST(request: NextRequest) {
                         flags: 64,
                     },
                 });
-            }
-            else if (name === "covalent") {
+            } else if (name === "covalent") {
                 if (options === undefined) {
                     const row = handleCovalentCommand();
                     return NextResponse.json({
