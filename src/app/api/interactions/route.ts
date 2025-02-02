@@ -5,6 +5,7 @@ import { InteractionResponseType, InteractionType } from 'discord-interactions';
 import { NextResponse, type NextRequest } from 'next/server'
 import { test } from './test';
 import { agentkit } from './agentkit';
+import { twitter } from './twitter';
 import { createWallet } from './wallet/index';
 import { autonome } from './autonome';
 
@@ -33,6 +34,15 @@ export async function POST(request: NextRequest) {
                         flags: 64,
                     },
                 });
+            } else if (name === "agentkit_twitter") {
+                await twitter(channel_id, options);
+                return NextResponse.json({
+                    type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+                    data: {
+                        content: "The AgentKit is running",
+                        flags: 64,
+                    },
+                });
             } else if (name === "autonome") {
                 await autonome(channel_id, options);
                 return NextResponse.json({
@@ -47,6 +57,23 @@ export async function POST(request: NextRequest) {
                 const response = await createWallet(userId); // Wait for wallet creation
                 return response; // Return the response from createWallet
             }
+            else {
+                return NextResponse.json({
+                    type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+                    data: {
+                        content: "Command not found",
+                        flags: 64,
+                    },
+                });
+            }
+        } else {
+            return NextResponse.json({
+                type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+                data: {
+                    content: "Action not found",
+                    flags: 64,
+                },
+            });
         }
 
     } catch (error) {

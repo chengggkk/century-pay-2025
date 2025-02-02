@@ -56,11 +56,26 @@ const AGENTKIT_COMMAND = {
     ],
 };
 
+const TWITTER_COMMAND = {
+    name: "agentkit_twitter",
+    description: "Interact with the agentkit and publish to twitter",
+    type: 1, // CHAT_INPUT
+    options: [
+        {
+            type: 3, // STRING
+            name: "prompt",
+            description: "Prompt to send to the agentkit to generate a tweet",
+            required: true,
+        },
+    ],
+};
+
 const WALLET_COMMAND = {
     name: "wallet",
     description: "Create a new wallet",
     type: 1, // CHAT_INPUT
 };
+
 const AUTONOME_COMMAND = {
     name: "autonome",
     description: "Interact with the autonome",
@@ -79,6 +94,7 @@ const AUTONOME_COMMAND = {
 const ALL_COMMANDS = [
     TEST_COMMAND,
     AGENTKIT_COMMAND,
+    TWITTER_COMMAND,
     WALLET_COMMAND,
     AUTONOME_COMMAND
 ];

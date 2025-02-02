@@ -1,11 +1,12 @@
 import { CdpAgentkit } from "./cdp-agentkit-core";
-import { CdpToolkit } from "./cdp-langchain";
+import { CdpTool, CdpToolkit } from "./cdp-langchain";
 import { MemorySaver } from "@langchain/langgraph";
 import { tool } from "@langchain/core/tools";
 import { createReactAgent } from "@langchain/langgraph/prebuilt";
 import { ChatOpenAI } from "@langchain/openai";
 import * as dotenv from "dotenv";
 import { z } from "zod";
+import { SIGN_MESSAGE_PROMPT, signMessage } from "./sign";
 
 // dotenv.config();
 
@@ -62,6 +63,22 @@ export async function initializeAgent() {
   // Initialize CDP AgentKit Toolkit and get tools
   const cdpToolkit = new CdpToolkit(agentkit as any);
   const tools = cdpToolkit.getTools();
+  const SignMessageInput = z
+    .object({
+      message: z.string().describe("The message to sign. e.g. `hello world`"),
+    })
+    .strip()
+    .describe("Instructions for signing a blockchain message");
+  const signMessageTool = new CdpTool(
+    {
+      name: "sign_message",
+      description: SIGN_MESSAGE_PROMPT,
+      argsSchema: SignMessageInput,
+      func: signMessage,
+    },
+    agentkit,
+  );
+  tools.push(signMessageTool);
 
   // Store buffered conversation history in memory
   const memory = new MemorySaver();
