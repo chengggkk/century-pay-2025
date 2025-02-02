@@ -6,6 +6,7 @@ import { NextResponse, type NextRequest } from 'next/server'
 import { test } from './test';
 import { agentkit } from './agentkit';
 import { createWallet } from './wallet/index';
+import { autonome } from './autonome';
 
 // export const runtime = 'edge'
 
@@ -29,6 +30,15 @@ export async function POST(request: NextRequest) {
                     type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
                     data: {
                         content: "The AgentKit is running",
+                        flags: 64,
+                    },
+                });
+            } else if (name === "autonome") {
+                await autonome(channel_id, options);
+                return NextResponse.json({
+                    type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+                    data: {
+                        content: "The Autonome is running",
                         flags: 64,
                     },
                 });
