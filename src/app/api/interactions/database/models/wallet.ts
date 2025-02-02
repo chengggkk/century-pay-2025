@@ -1,6 +1,5 @@
 
 import mongoose from 'mongoose';
-import { number } from 'zod';
 
 const walletSchema = new mongoose.Schema({
     user: {
