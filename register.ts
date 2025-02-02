@@ -110,6 +110,19 @@ const SEND_COMMAND = {
         },
     ],
 };
+
+const IPFS_COMMAND = {
+    name: "ipfs",
+    description: "Upload files to IPFS",
+    options: [
+        {
+            type: 11, // ATTACHMENT
+            name: "file",
+            description: "Upload a file to IPFS",
+            required: true,
+        },
+    ],
+};
 const COVALENT_COMMAND = new SlashCommandBuilder()
     .setName("covalent")
     .setDescription("Interact with Covalent")
@@ -127,6 +140,7 @@ const ALL_COMMANDS = [
     WALLET_COMMAND,
     AUTONOME_COMMAND,
     SEND_COMMAND,
+    IPFS_COMMAND,
     COVALENT_COMMAND
 ];
 
