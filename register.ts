@@ -110,6 +110,19 @@ const SEND_COMMAND = {
     ],
 };
 
+const IPFS_COMMAND = {
+    name: "ipfs",
+    description: "Upload files to IPFS",
+    options: [
+        {
+            type: 11, // ATTACHMENT
+            name: "file",
+            description: "Upload a file to IPFS",
+            required: true,
+        },
+    ],
+};
+
 // Update command list
 const ALL_COMMANDS = [
     TEST_COMMAND,
@@ -117,7 +130,8 @@ const ALL_COMMANDS = [
     TWITTER_COMMAND,
     WALLET_COMMAND,
     AUTONOME_COMMAND,
-    SEND_COMMAND
+    SEND_COMMAND,
+    IPFS_COMMAND
 ];
 
 async function main() {

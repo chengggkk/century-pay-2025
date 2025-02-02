@@ -62,6 +62,15 @@ export async function POST(request: NextRequest) {
                 const response = await send(channel_id, userId, options[0].value, options[1].value); // From, To, Amount
                 return response;
             }
+            else if (name === "ipfs") {
+                return NextResponse.json({
+                    type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+                    data: {
+                        content: "IPFS is running",
+                        flags: 64,
+                    },
+                });
+            }
             else {
                 return NextResponse.json({
                     type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
