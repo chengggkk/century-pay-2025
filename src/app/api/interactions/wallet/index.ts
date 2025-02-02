@@ -41,7 +41,6 @@ export const createWallet = async (userId: string) => {
     const newWallet = new wallet({
       user: userId,
       wallet: generatedWallet,
-      balance: 0,
       network: "base-sepolia",
     });
 

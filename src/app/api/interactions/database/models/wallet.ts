@@ -16,10 +16,6 @@ const walletSchema = new mongoose.Schema({
         required: true,
         default: Date.now,
     },
-    balance: {
-        type: Number,
-        required: false
-    },
     network: {
         type: String,
     },

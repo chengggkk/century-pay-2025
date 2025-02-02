@@ -1,10 +1,16 @@
 import { CdpAgentkit } from "../agentkit/cdp-agentkit-core";
-import wallet from "../database/models/wallet";
+import WalletModel from "../database/models/wallet";
 import dotenv from "dotenv";
 import { InteractionResponseType } from "discord-interactions";
 import { NextResponse } from "next/server";
 import dbConnect from "../database/connectdb/connectdb";
 import transaction from "../database/models/transaction";
+import { GetBalanceInput, getBalance } from "../agentkit/cdp-agentkit-core/actions/cdp/get_balance";
+import { get } from "http";
+import { agentkit } from "../agentkit";
+import { initializeAgent } from "../agentkit/agent";
+import { HumanMessage } from "@langchain/core/messages";
+import { sendMessage } from "../agentkit/edit";
 
 dotenv.config();
 
@@ -14,75 +20,46 @@ dotenv.config();
  * @param {string} ToId - The Discord user ID.
  * @returns {NextResponse} - Response containing the wallet creation message.
  */
-export const send = async (fromId:string, ToId:string, amount:string) => {
+export const send = async (channelId: string, fromId: string, ToId: string, amount: string) => {
   const cleanToId = ToId.replace(/[^0-9]/g, "");
-
-  const amountINT = parseInt(amount);
+  const amountFloat = parseFloat(amount);
 
   try {
+    console.log(fromId, ToId, amount);
     await dbConnect();
-
-    // Check if the sender has a wallet
-    const senderWallet = await wallet.findOne({ user: fromId });
-    const receiverWallet = await wallet.findOne({ user: cleanToId });
-    console.log(fromId, ToId, amount, cleanToId);
-    if (!senderWallet) {
+    const result = await WalletModel.findOne({ user: cleanToId });
+    console.log(result);
+    if (!result) {
       return NextResponse.json({
         type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
         data: {
-          content: "❌ You don't have a wallet. Please create one first.",
-          flags: 64,
+          content: `User not found`,
+          flags: 64, // Private response
         },
       });
     }
-    else if (!receiverWallet) {
-      return NextResponse.json({
-        type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
-        data: {
-          content: "❌ Receiver don't have a wallet. Please ask them to create one first.",
-          flags: 64,
-        },
-      });
-    }
-    else if (senderWallet.balance < amount) {
-      return NextResponse.json({
-        type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
-        data: {
-          content: "❌ You don't have enough balance to send this amount.",
-          flags: 64,
-        },
-      });
-    }
-    else {
-      const senderBalance = senderWallet.balance - amountINT;
-      const receiverBalance = receiverWallet.balance + amountINT;
+    const { defaultAddressId } = JSON.parse(result.wallet);
+    const { agent, config } = await initializeAgent(fromId);
+    const stream = await agent.stream({ messages: [new HumanMessage(`send ${amountFloat} ETH to ${defaultAddressId}`)] }, config);
+    for await (const chunk of stream) {
+      if ("agent" in chunk) {
+        const response = chunk.agent.messages[0].content;
+        console.log("agent", response);
+        await sendMessage(channelId, {
+          content: response,
+        });
 
-      await wallet.findOneAndUpdate({ user: fromId }, { balance: senderBalance });
-      await wallet.findOneAndUpdate({ user: cleanToId }, { balance: receiverBalance });
+      } else if ("tools" in chunk) {
+        const response = chunk.tools.messages[0].content;
+        console.log("tool", response);
+        await sendMessage(channelId, {
+          content: response,
+        });
 
-      const newTransaction = new transaction({
-        SenderId: fromId,
-        ReceiverId: cleanToId,
-        amount: amountINT,
-        network: process.env.NETWORK_ID || "base-sepolia",
-      });
-
-      return NextResponse.json({
-        type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
-        data: {
-          content: `✅ Successfully sent ${amount} to <@${cleanToId}>.`,
-        },
-      });
+      }
     }
-    
   } catch (error) {
-    console.error("❌ Error generating wallet:", error);
-    return NextResponse.json({
-      type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
-      data: {
-        content: "❌ Failed to generate a wallet. Please try again.",
-        flags: 64,
-      },
-    });
+    console.error(error);
+    return new Response(JSON.stringify({ error: 'Internal server error' }), { status: 500 });
   }
 };

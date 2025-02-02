@@ -58,8 +58,8 @@ export async function POST(request: NextRequest) {
                 const response = await createWallet(userId); // Wait for wallet creation
                 return response; // Return the response from createWallet
             }
-            else if(name === "send") {
-                const response = await send(userId, options[0].value, options[1].value); // From, To, Amount
+            else if (name === "send") {
+                const response = await send(channel_id, userId, options[0].value, options[1].value); // From, To, Amount
                 return response;
             }
             else {
