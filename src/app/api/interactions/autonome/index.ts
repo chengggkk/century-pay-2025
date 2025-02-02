@@ -44,8 +44,8 @@ export const autonome = async (channelId: string, options: any) => {
     const query = options[0].value;
     const response = await callAutonome(query);
     if (response.length > 0) {
-        await sendMessage(channelId, response[0].text);
+        await sendMessage(channelId, { content: response[0].text });
     } else {
-        await sendMessage(channelId, "Autonome Error: " + response);
+        await sendMessage(channelId, { content: "Autonome Error: " + response });
     }
 };
