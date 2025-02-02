@@ -58,6 +58,7 @@ export async function initializeAgent() {
 
   // Initialize CDP AgentKit
   const agentkit = await CdpAgentkit.configureWithWallet(config);
+  const wallet = await agentkit.exportWallet()
   // Initialize CDP AgentKit Toolkit and get tools
   const cdpToolkit = new CdpToolkit(agentkit as any);
   const tools = cdpToolkit.getTools();

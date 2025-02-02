@@ -56,6 +56,11 @@ const AGENTKIT_COMMAND = {
     ],
 };
 
+const WALLET_COMMAND = {
+    name: "wallet",
+    description: "Create a new wallet",
+    type: 1, // CHAT_INPUT
+};
 const AUTONOME_COMMAND = {
     name: "autonome",
     description: "Interact with the autonome",
@@ -74,6 +79,7 @@ const AUTONOME_COMMAND = {
 const ALL_COMMANDS = [
     TEST_COMMAND,
     AGENTKIT_COMMAND,
+    WALLET_COMMAND,
     AUTONOME_COMMAND
 ];
 
