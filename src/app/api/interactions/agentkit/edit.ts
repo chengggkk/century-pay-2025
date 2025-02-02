@@ -41,32 +41,3 @@ export const sendMessage = async (channel_id: string, payload: any) => {
     }
 
 }
-
-function splitContent(content: string, maxLength: number): string[] {
-    const chunks: string[] = [];
-    let startIndex = 0;
-
-    while (startIndex < content.length) {
-        // Find the slice's end point, starting with maxLength
-        let endIndex = startIndex + maxLength;
-
-        // If we exceed the string length, stop at the end of the content
-        if (endIndex >= content.length) {
-            chunks.push(content.slice(startIndex));
-            break;
-        }
-
-        // Look for the nearest newline within the range of maxLength
-        let newlineIndex = content.lastIndexOf("\n", endIndex);
-        if (newlineIndex === -1 || newlineIndex < startIndex) {
-            // If no newline is found or it's outside the current slice, just cut at maxLength
-            newlineIndex = endIndex;
-        }
-
-        // Add the chunk and move the start index to the next part
-        chunks.push(content.slice(startIndex, newlineIndex));
-        startIndex = newlineIndex + 1;  // Move past the newline (if it exists)
-    }
-
-    return chunks;
-}
