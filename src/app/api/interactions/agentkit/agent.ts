@@ -9,6 +9,7 @@ import { z } from "zod";
 import { SIGN_MESSAGE_PROMPT, signMessage } from "./sign";
 import dbConnect from "../database/connectdb/connectdb";
 import  walletModel  from "../database/models/wallet";
+import { generateSnarkjsProof, SNARKJS_PROMPT, SnarkjsInput } from "./zk";
 
 
 // dotenv.config();
@@ -107,7 +108,17 @@ export async function initializeAgent(userId: string) {
     },
     agentkit,
   );
+  const snarkjsMultipler2Tool = new CdpTool(
+    {
+      name: "snarkjs_multipler2",
+      description: SNARKJS_PROMPT,
+      argsSchema: SnarkjsInput,
+      func: generateSnarkjsProof,
+    },
+    agentkit,
+  );
   tools.push(signMessageTool);
+  tools.push(snarkjsMultipler2Tool);
 
   // Store buffered conversation history in memory
   const memory = new MemorySaver();
