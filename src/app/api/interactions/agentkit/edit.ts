@@ -22,28 +22,24 @@ export const edit = async (channel_id: string, id: string, content: string) => {
     }
 }
 
-export const sendMessage = async (channel_id: string, content: string) => {
+export const sendMessage = async (channel_id: string, payload: any) => {
     const url = `https://discord.com/api/v10/channels/${channel_id}/messages`;
-    const maxLength = 1500;
-    const chunks = splitContent(content, maxLength);
-    for (const chunk of chunks) {
-        const payload = { content: chunk };
 
-        const response = await fetch(url, {
-            method: "POST",
-            headers: {
-                "Authorization": `Bot ${process.env.DISCORD_TOKEN}`,
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(payload),
-        });
+    const response = await fetch(url, {
+        method: "POST",
+        headers: {
+            "Authorization": `Bot ${process.env.DISCORD_TOKEN}`,
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+    });
 
-        if (response.ok) {
-            console.log('Message sent successfully!');
-        } else {
-            console.error('Error sending message:', await response.text());
-        }
+    if (response.ok) {
+        console.log('Message sent successfully!');
+    } else {
+        console.error('Error sending message:', await response.text());
     }
+
 }
 
 function splitContent(content: string, maxLength: number): string[] {
