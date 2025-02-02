@@ -56,10 +56,25 @@ const AGENTKIT_COMMAND = {
     ],
 };
 
+const AUTONOME_COMMAND = {
+    name: "autonome",
+    description: "Interact with the autonome",
+    type: 1, // CHAT_INPUT
+    options: [
+        {
+            type: 3, // STRING
+            name: "prompt",
+            description: "Prompt to send to the autonome",
+            required: true,
+        },
+    ],
+};
+
 // Update command list
 const ALL_COMMANDS = [
     TEST_COMMAND,
-    AGENTKIT_COMMAND
+    AGENTKIT_COMMAND,
+    AUTONOME_COMMAND
 ];
 
 async function main() {
