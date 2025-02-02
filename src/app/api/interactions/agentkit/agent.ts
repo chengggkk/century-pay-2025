@@ -8,7 +8,9 @@ import * as dotenv from "dotenv";
 import { z } from "zod";
 import { SIGN_MESSAGE_PROMPT, signMessage } from "./sign";
 import dbConnect from "../database/connectdb/connectdb";
-import  walletModel  from "../database/models/wallet";
+import walletModel from "../database/models/wallet";
+import { IPFS_UPLOAD_PROMPT, IpfsInput, ipfsUpload } from "./ipfs";
+import { ipfs } from "../ipfs";
 
 
 // dotenv.config();
@@ -107,7 +109,17 @@ export async function initializeAgent(userId: string) {
     },
     agentkit,
   );
+  const ipfsUploadTool = new CdpTool(
+    {
+      name: "ipfs_upload",
+      description: IPFS_UPLOAD_PROMPT,
+      argsSchema: IpfsInput,
+      func: ipfsUpload,
+    },
+    agentkit,
+  );
   tools.push(signMessageTool);
+  tools.push(ipfsUploadTool);
 
   // Store buffered conversation history in memory
   const memory = new MemorySaver();

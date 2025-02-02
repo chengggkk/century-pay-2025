@@ -1,43 +1,35 @@
+import axios from "axios";
+import dotenv from "dotenv";
+import FormData from "form-data";
 import { initializeAgent } from "../agentkit/agent";
 import { HumanMessage } from "@langchain/core/messages";
 import { sendMessage } from "../agentkit/edit";
 
-const payload = {
-    components: [
-        {
-            type: 1, // Action Row
-            components: [
-                {
-                    type: 2, // Button
-                    label: "Tweet",
-                    style: 5, // Primary Button (blue)
-                    url: "https://twitter.com/intent/tweet"
-                }
-            ]
-        }
-    ]
-}
+dotenv.config();
 
-export const ipfs = async (channel_id: string, options: any, userId: string) => {
+/**
+ * Uploads a file to IPFS via Infura.
+ * @param {string} channel_id - The Discord channel ID (optional for logging).
+ * @param {string} userId - The Discord user ID (who is uploading).
+ * @param {string} fileUrl - The URL of the file from Discord.
+ * @returns {Promise<string | undefined>} - The IPFS URL of the uploaded NFT.
+ */
+export const ipfs = async (channel_id: string, userId: string, fileUrl: any) => {
     try {
         const { agent, config } = await initializeAgent(userId);
-        const stream = await agent.stream({ messages: [new HumanMessage(options[0].value + ", write a tweet max 150 characters")] }, config);
+        const stream = await agent.stream({ messages: [new HumanMessage(`upload to IPFS, image URL if ${fileUrl}`)] }, config);
         for await (const chunk of stream) {
             if ("agent" in chunk) {
                 const response = chunk.agent.messages[0].content;
                 console.log("agent", response);
-                payload.components[0].components[0].url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(response)}`
                 await sendMessage(channel_id, {
-                    ...payload,
                     content: response,
                 });
 
             } else if ("tools" in chunk) {
                 const response = chunk.tools.messages[0].content;
                 console.log("tools", response);
-                payload.components[0].components[0].url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(response)}`
                 await sendMessage(channel_id, {
-                    ...payload,
                     content: response,
                 });
 

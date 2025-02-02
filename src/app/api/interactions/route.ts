@@ -11,6 +11,7 @@ import { autonome } from './autonome';
 import { send } from './send';
 import { covalent } from './covalent';
 import { handleCovalentCommand } from './utils';
+import { ipfs } from './ipfs';
 
 // export const runtime = 'edge'
 
@@ -23,7 +24,7 @@ export async function POST(request: NextRequest) {
         }
 
         if (type === InteractionType.APPLICATION_COMMAND) {
-            const { name, options, custom_id, id } = data;
+            const { name, options, custom_id, id, resolved } = data;
             const userId = member?.user?.id || user?.id;
 
             if (name === "test") {
@@ -65,10 +66,12 @@ export async function POST(request: NextRequest) {
                 return response;
             }
             else if (name === "ipfs") {
+                console.log(resolved.attachments[`${options[0].value}`].url);
+                await ipfs(channel_id,userId,resolved.attachments[`${options[0].value}`].url);
                 return NextResponse.json({
                     type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
                     data: {
-                        content: "IPFS is running",
+                        content: "The IPFS is running",
                         flags: 64,
                     },
                 });
