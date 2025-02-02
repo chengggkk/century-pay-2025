@@ -1,6 +1,7 @@
 import { initializeAgent } from "./agent";
 import { HumanMessage } from "@langchain/core/messages";
 import { sendMessage } from "./edit";
+import { processingMessage } from "../utils";
 
 const maxLength = 1500;
 
@@ -34,6 +35,7 @@ export function splitContent(content: string): string[] {
 }
 
 export const agentkit = async (channel_id: string, options: any, userId: string) => {
+    await sendMessage(channel_id, processingMessage);
     const { agent, config } = await initializeAgent(userId);
     const stream = await agent.stream({ messages: [new HumanMessage(options[0].value)] }, config);
     for await (const chunk of stream) {
@@ -41,13 +43,13 @@ export const agentkit = async (channel_id: string, options: any, userId: string)
             console.log("agent", chunk.agent.messages[0].content);
             const chunks = splitContent(chunk.agent.messages[0].content);
             for (const chunk of chunks) {
-                await sendMessage(channel_id, { content: chunk });
+                await sendMessage(channel_id, { content: `**AgentKit**: ${chunk}` });
             }
         } else if ("tools" in chunk) {
             console.log("tools", chunk.tools.messages[0].content);
             const chunks = splitContent(chunk.tools.messages[0].content);
             for (const chunk of chunks) {
-                await sendMessage(channel_id, { content: chunk });
+                await sendMessage(channel_id, { content: `**AgentKit**: ${chunk}` });
             }
         }
     }

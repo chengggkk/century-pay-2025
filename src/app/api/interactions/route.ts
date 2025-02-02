@@ -9,6 +9,8 @@ import { twitter } from './twitter';
 import { createWallet } from './wallet/index';
 import { autonome } from './autonome';
 import { send } from './send';
+import { covalent } from './covalent';
+import { handleCovalentCommand } from './utils';
 
 // export const runtime = 'edge'
 
@@ -71,6 +73,28 @@ export async function POST(request: NextRequest) {
                     },
                 });
             }
+            else if (name === "covalent") {
+                if (options === undefined) {
+                    const row = handleCovalentCommand();
+                    return NextResponse.json({
+                        type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+                        data: {
+                            content: "Here are some options:",
+                            components: [row],
+                            ephemeral: true,
+                        }
+                    });
+                } else {
+                    await covalent(channel_id, options[0].value);
+                    return NextResponse.json({
+                        type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+                        data: {
+                            content: "The Covalent is running",
+                            flags: 64,
+                        },
+                    });
+                }
+            }
             else {
                 return NextResponse.json({
                     type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
@@ -80,7 +104,29 @@ export async function POST(request: NextRequest) {
                     },
                 });
             }
-        } else {
+        } else if (type === InteractionType.MESSAGE_COMPONENT) {
+            const { custom_id } = data;
+            let query = "";
+            if (custom_id === "covalent_analyze_wallet") {
+                query = "Analyze the token balances for address karanpargal.eth on eth-mainnet..."
+            }
+            else if (custom_id === "covalent_other_analysis") {
+                query = "What NFTs does address karanpargal.eth own on eth-mainnet?..."
+            }
+
+            if (custom_id.startsWith("covalent_")) {
+                await covalent(channel_id, query);
+                return NextResponse.json({
+                    type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+                    data: {
+                        content: "The Covalent is running",
+                        flags: 64,
+                    },
+                });
+            }
+        } else if (type === InteractionType.MODAL_SUBMIT) {
+        }
+        else {
             return NextResponse.json({
                 type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
                 data: {

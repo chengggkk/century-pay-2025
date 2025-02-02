@@ -1,6 +1,5 @@
-import { InteractionResponseType } from "discord-interactions";
-import { NextResponse } from "next/server";
 import { sendMessage } from "../agentkit/edit";
+import { processingMessage } from "../utils";
 
 async function callAutonome(query: string) {
     const url = process.env.AUTONOME_URL;
@@ -41,10 +40,11 @@ async function callAutonome(query: string) {
 
 
 export const autonome = async (channelId: string, options: any, userId: any) => {
+    await sendMessage(channelId, processingMessage);
     const query = options[0].value;
     const response = await callAutonome(query);
     if (response.length > 0) {
-        await sendMessage(channelId, { content: response[0].text });
+        await sendMessage(channelId, { content: `**Autonome**: ${response[0].text}` });
     } else {
         await sendMessage(channelId, { content: "Autonome Error: " + response });
     }
