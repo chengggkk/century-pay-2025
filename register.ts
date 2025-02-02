@@ -102,7 +102,7 @@ const SEND_COMMAND = {
             required: true,
         },
         {
-            type: 4, // INTEGER
+            type: 3, // STRING
             name: "amount",
             description: "Amount to send",
             required: true,

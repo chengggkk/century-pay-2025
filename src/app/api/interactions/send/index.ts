@@ -14,8 +14,10 @@ dotenv.config();
  * @param {string} ToId - The Discord user ID.
  * @returns {NextResponse} - Response containing the wallet creation message.
  */
-export const send = async (fromId:string, ToId:string, amount:number) => {
+export const send = async (fromId:string, ToId:string, amount:string) => {
   const cleanToId = ToId.replace(/[^0-9]/g, "");
+
+  const amountINT = parseInt(amount);
 
   try {
     await dbConnect();
@@ -52,8 +54,8 @@ export const send = async (fromId:string, ToId:string, amount:number) => {
       });
     }
     else {
-      const senderBalance = senderWallet.balance - amount;
-      const receiverBalance = receiverWallet.balance + amount;
+      const senderBalance = senderWallet.balance - amountINT;
+      const receiverBalance = receiverWallet.balance + amountINT;
 
       await wallet.findOneAndUpdate({ user: fromId }, { balance: senderBalance });
       await wallet.findOneAndUpdate({ user: cleanToId }, { balance: receiverBalance });
@@ -61,7 +63,7 @@ export const send = async (fromId:string, ToId:string, amount:number) => {
       const newTransaction = new transaction({
         SenderId: fromId,
         ReceiverId: cleanToId,
-        amount: amount,
+        amount: amountINT,
         network: process.env.NETWORK_ID || "base-sepolia",
       });
 
