@@ -1,13 +1,12 @@
 
 import mongoose from 'mongoose';
-import { number } from 'zod';
 
-const walletSchema = new mongoose.Schema({
-    user: {
+const transactionsSchema = new mongoose.Schema({
+    ReceiverId: {
         type: String,
         required: true,
     },
-    wallet: {
+    SenderId: {
         type: String,
         required: true,
     },
@@ -16,8 +15,8 @@ const walletSchema = new mongoose.Schema({
         required: true,
         default: Date.now,
     },
-    balance: {
-        type: Number,
+    amount: {
+        type: String,
         required: false
     },
     network: {
@@ -26,7 +25,7 @@ const walletSchema = new mongoose.Schema({
 });
 
 
-const wallet = mongoose.models.wallet || mongoose.model('wallet', walletSchema);
+const transactions = mongoose.models.transactions || mongoose.model('transactions', transactionsSchema);
 
 
-export default wallet; 
+export default transactions;

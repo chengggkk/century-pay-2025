@@ -90,13 +90,34 @@ const AUTONOME_COMMAND = {
     ],
 };
 
+const SEND_COMMAND = {
+    name: "send",
+    description: "Send money to a user",
+    type: 1, // CHAT_INPUT
+    options: [
+        {
+            type: 3, // STRING
+            name: "to",
+            description: "User to send money to",
+            required: true,
+        },
+        {
+            type: 4, // INTEGER
+            name: "amount",
+            description: "Amount to send",
+            required: true,
+        },
+    ],
+};
+
 // Update command list
 const ALL_COMMANDS = [
     TEST_COMMAND,
     AGENTKIT_COMMAND,
     TWITTER_COMMAND,
     WALLET_COMMAND,
-    AUTONOME_COMMAND
+    AUTONOME_COMMAND,
+    SEND_COMMAND
 ];
 
 async function main() {
@@ -108,3 +129,4 @@ main().then(() => {
 }).catch((error) => {
     console.error("Failed to install commands: ", error);
 });
+

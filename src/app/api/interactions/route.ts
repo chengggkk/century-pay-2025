@@ -8,6 +8,7 @@ import { agentkit } from './agentkit';
 import { twitter } from './twitter';
 import { createWallet } from './wallet/index';
 import { autonome } from './autonome';
+import { send } from './send';
 
 // export const runtime = 'edge'
 
@@ -56,6 +57,10 @@ export async function POST(request: NextRequest) {
             else if (name === "wallet") {
                 const response = await createWallet(userId); // Wait for wallet creation
                 return response; // Return the response from createWallet
+            }
+            else if(name === "send") {
+                const response = await send(userId, options[0].value, options[1].value); // From, To, Amount
+                return response;
             }
             else {
                 return NextResponse.json({
