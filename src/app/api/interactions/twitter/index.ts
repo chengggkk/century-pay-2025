@@ -18,9 +18,9 @@ const payload = {
     ]
 }
 
-export const twitter = async (channel_id: string, options: any) => {
+export const twitter = async (channel_id: string, options: any, userId: string) => {
     try {
-        const { agent, config } = await initializeAgent();
+        const { agent, config } = await initializeAgent(userId);
         const stream = await agent.stream({ messages: [new HumanMessage(options[0].value + ", write a tweet max 150 characters")] }, config);
         for await (const chunk of stream) {
             if ("agent" in chunk) {

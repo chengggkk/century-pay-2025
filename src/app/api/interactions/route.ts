@@ -28,7 +28,7 @@ export async function POST(request: NextRequest) {
             if (name === "test") {
                 return test(userId);
             } else if (name === "agentkit") {
-                await agentkit(channel_id, options); // run in the background
+                await agentkit(channel_id, options, userId); // run in the background
                 return NextResponse.json({
                     type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
                     data: {
@@ -37,7 +37,7 @@ export async function POST(request: NextRequest) {
                     },
                 });
             } else if (name === "agentkit_twitter") {
-                await twitter(channel_id, options);
+                await twitter(channel_id, options, userId);
                 return NextResponse.json({
                     type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
                     data: {
@@ -46,7 +46,7 @@ export async function POST(request: NextRequest) {
                     },
                 });
             } else if (name === "autonome") {
-                await autonome(channel_id, options);
+                await autonome(channel_id, options, userId);
                 return NextResponse.json({
                     type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
                     data: {

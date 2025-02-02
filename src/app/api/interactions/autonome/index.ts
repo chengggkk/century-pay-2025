@@ -39,7 +39,7 @@ async function callAutonome(query: string) {
 }
 
 
-export const autonome = async (channelId: string, options: any) => {
+export const autonome = async (channelId: string, options: any, userId: any) => {
     await sendMessage(channelId, processingMessage);
     const query = options[0].value;
     const response = await callAutonome(query);

@@ -7,6 +7,9 @@ import { ChatOpenAI } from "@langchain/openai";
 import * as dotenv from "dotenv";
 import { z } from "zod";
 import { SIGN_MESSAGE_PROMPT, signMessage } from "./sign";
+import dbConnect from "../database/connectdb/connectdb";
+import  walletModel  from "../database/models/wallet";
+
 
 // dotenv.config();
 
@@ -15,17 +18,44 @@ const WALLET_DATA_FILE = "wallet_data.txt";
 
 /**
  * Initialize the agent with CDP AgentKit
- *
+ * @param userId - The user ID
  * @returns Agent executor and config
  */
-export async function initializeAgent() {
+export async function initializeAgent(userId: string) {
   // Initialize LLM
   const llm = new ChatOpenAI({
     model: "gpt-4o-mini",
   });
-
+  await dbConnect();
   let walletDataStr: string | null = null;
 
+  try {
+    const walletData = await walletModel.findOne({ user: userId }); // Use walletModel instead of wallet
+    if (walletData) {
+      console.log("Wallet data found:", walletData);
+      walletDataStr = walletData.wallet; // Assuming 'wallet' is the field containing the wallet address
+    }
+    else {
+      // Generate a new wallet using CDP AgentKit
+      const agentkit = await CdpAgentkit.configureWithWallet({
+        networkId: process.env.NETWORK_ID || "base-sepolia",
+      });
+
+      const generatedWallet = await agentkit.exportWallet();
+
+      // Store the new wallet in MongoDB
+      const newWallet = new walletModel({
+        user: userId,
+        wallet: generatedWallet,
+      });
+
+      await newWallet.save();
+      walletDataStr = generatedWallet;
+      console.log("New wallet created:", walletDataStr);
+    }
+  } catch (error) {
+    console.error("Error fetching wallet data:", error);
+  }
   // Read existing wallet data if available
   //   if (fs.existsSync(WALLET_DATA_FILE)) {
   //     try {
@@ -59,7 +89,6 @@ export async function initializeAgent() {
 
   // Initialize CDP AgentKit
   const agentkit = await CdpAgentkit.configureWithWallet(config);
-  const wallet = await agentkit.exportWallet()
   // Initialize CDP AgentKit Toolkit and get tools
   const cdpToolkit = new CdpToolkit(agentkit as any);
   const tools = cdpToolkit.getTools();
@@ -97,5 +126,5 @@ export async function initializeAgent() {
   //   const exportedWallet = await agentkit.exportWallet();
   //   fs.writeFileSync(WALLET_DATA_FILE, exportedWallet);
 
-  return { agent, config: agentConfig };
+  return { agent, config: agentConfig, walletDataStr };
 }
