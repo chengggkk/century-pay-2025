@@ -1,4 +1,5 @@
 
+import { SlashCommandBuilder } from "discord.js";
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -109,6 +110,14 @@ const SEND_COMMAND = {
         },
     ],
 };
+const COVALENT_COMMAND = new SlashCommandBuilder()
+    .setName("covalent")
+    .setDescription("Interact with Covalent")
+    .addStringOption(option =>
+        option.setName("prompt")
+            .setDescription("Prompt to send to Covalent")
+            .setRequired(false) // Optional because we have buttons
+    );
 
 // Update command list
 const ALL_COMMANDS = [
@@ -117,7 +126,8 @@ const ALL_COMMANDS = [
     TWITTER_COMMAND,
     WALLET_COMMAND,
     AUTONOME_COMMAND,
-    SEND_COMMAND
+    SEND_COMMAND,
+    COVALENT_COMMAND
 ];
 
 async function main() {

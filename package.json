@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@coinbase/coinbase-sdk": "^0.17.0",
+    "@covalenthq/ai-agent-sdk": "^0.2.0",
+    "@covalenthq/client-sdk": "^2.2.3",
     "@langchain/core": "^0.3.37",
     "@langchain/langgraph": "^0.2.44",
     "@langchain/openai": "^0.4.2",
