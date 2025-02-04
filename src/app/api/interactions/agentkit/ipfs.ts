@@ -103,7 +103,7 @@ export async function ipfsUpload(
     console.log(`✅ Metadata JSON uploaded to IPFS in folder: ${metadataIpfsUrl}`);
 
     // Return the final folder structure link
-    return `Image IPFS URL: ${imageIpfsUrl}\nMetadata IPFS URL: ${metadataIpfsUrl}`;
+    return `Image IPFS URL: ${imageIpfsUrl}\nMetadata IPFS URL: ${metadataIpfsUrl} \n deploy NFTs: `;
 
   } catch (error) {
     console.error("❌ Error uploading to IPFS:", (error as any).response ? (error as any).response.data : error);

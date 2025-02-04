@@ -132,6 +132,34 @@ const COVALENT_COMMAND = new SlashCommandBuilder()
             .setRequired(false) // Optional because we have buttons
     );
 
+const DEPLOYNFT_COMMAND = {
+    name: "deploynft",
+    description: "Deploy NFT",
+    type: 1, // CHAT_INPUT
+    options: [
+        {
+            type: 3, // STRING
+            name: "name",
+            description: "Name of the NFT",
+            required: true,
+        },
+
+        {
+            type: 3, // STRING
+            name: "symbol",
+            description: "Symbol of the NFT",
+            required: true,
+        },
+
+        {
+            type: 3, // STRING
+            name: "metadata",
+            description: "Metadata Link or CID of the NFT",
+            required: true,
+        }
+    ],
+}
+
 // Update command list
 const ALL_COMMANDS = [
     TEST_COMMAND,
@@ -141,7 +169,8 @@ const ALL_COMMANDS = [
     AUTONOME_COMMAND,
     SEND_COMMAND,
     IPFS_COMMAND,
-    COVALENT_COMMAND
+    COVALENT_COMMAND,
+    DEPLOYNFT_COMMAND
 ];
 
 async function main() {
