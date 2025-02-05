@@ -13,6 +13,7 @@ import { handleCovalentCommand } from './utils';
 import { ipfs } from './ipfs';
 import { deplotnft } from './deployNFT';
 import { mintNFT } from './mintNFT';
+import { sendNFT } from './sendNFT';
 
 require('dotenv').config();
 
@@ -110,6 +111,18 @@ export async function POST(request: NextRequest) {
                     type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
                     data: {
                         content: `NFT is deploying`,
+                        flags: 64,
+                    },
+                });
+            }
+
+            if (name === "sendnft") {
+                await sendNFT(channel_id, userId, options[0].value, options[1].value, options[2].value);
+
+                return NextResponse.json({
+                    type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+                    data: {
+                        content: `NFT is sending`,
                         flags: 64,
                     },
                 });
