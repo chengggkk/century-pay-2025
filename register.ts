@@ -170,7 +170,7 @@ const ALL_COMMANDS = [
     SEND_COMMAND,
     IPFS_COMMAND,
     COVALENT_COMMAND,
-    DEPLOYNFT_COMMAND
+    DEPLOYNFT_COMMAND,
 ];
 
 async function main() {
