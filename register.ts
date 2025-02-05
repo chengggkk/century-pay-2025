@@ -160,6 +160,32 @@ const DEPLOYNFT_COMMAND = {
     ],
 }
 
+const SENDNFT_COMMAND = {
+    name: "sendnft",
+    description: "Send NFT",
+    type: 1, // CHAT_INPUT
+    options: [
+        {
+            type: 3, // STRING
+            name: "to_address",
+            description: "User to send NFT to",
+            required: true,
+        },
+        {
+            type: 3, // STRING
+            name: "contract_address",
+            description: "Contract address of the NFT",
+            required: true,
+        },
+        {
+            type: 3, // STRING
+            name: "token_id",
+            description: "Token ID of the NFT",
+            required: true,
+        },
+    ],
+};
+
 // Update command list
 const ALL_COMMANDS = [
     TEST_COMMAND,
@@ -171,6 +197,7 @@ const ALL_COMMANDS = [
     IPFS_COMMAND,
     COVALENT_COMMAND,
     DEPLOYNFT_COMMAND,
+    SENDNFT_COMMAND,
 ];
 
 async function main() {

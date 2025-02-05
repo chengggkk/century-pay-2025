@@ -59,7 +59,7 @@ export const deplotnft = async (channel_id: string, userId: string, NFTname: str
                     components: [
                         {
                             type: 2, // Button
-                            label: "Mint NFT",
+                            label: "🤑Mint NFT",
                             style: 1, // Primary button (blue)
                             custom_id: `mint_${contractAddress}`,
                         }
