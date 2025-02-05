@@ -48,24 +48,23 @@ export const deplotnft = async (channel_id: string, userId: string, NFTname: str
 
                 }
             }
-
-            await sendMessage(channel_id, {
-                content: "✅ Your file has been uploaded to IPFS! Choose how you'd like to deploy your NFT:",
-                components: [
-                    {
-                        type: 1, // Action Row
-                        components: [
-                            {
-                                type: 2, // Button
-                                label: "Mint NFT",
-                                style: 1, // Primary button (blue)
-                                custom_id: `mint_${contractAddress}`,
-                            }
-                        ]
-                    }
-                ]
-            });
         }
+        await sendMessage(channel_id, {
+            content: "✅ Your file has been uploaded to IPFS! Choose how you'd like to deploy your NFT:",
+            components: [
+                {
+                    type: 1, // Action Row
+                    components: [
+                        {
+                            type: 2, // Button
+                            label: "Mint NFT",
+                            style: 1, // Primary button (blue)
+                            custom_id: `mint_${contractAddress}`,
+                        }
+                    ]
+                }
+            ]
+        });
     } catch (error) {
         console.error(error);
         return new Response(JSON.stringify({ error: 'Internal server error' }), { status: 500 });
