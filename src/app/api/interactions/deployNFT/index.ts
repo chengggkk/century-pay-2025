@@ -5,7 +5,6 @@ import { initializeAgent } from "../agentkit/agent";
 import { HumanMessage } from "@langchain/core/messages";
 import { sendMessage } from "../agentkit/edit";
 import { getContractAddress } from "viem";
-import { processingMessage } from "../utils";
 
 dotenv.config();
 
@@ -23,7 +22,6 @@ dotenv.config();
 
 export const deplotnft = async (channel_id: string, userId: string, NFTname: string, NFTsymbol: string, NFTmetadataLink: string) => {
     try {
-        await sendMessage(channel_id, processingMessage);
         const { agent, config } = await initializeAgent(userId);
         const stream = await agent.stream({ messages: [new HumanMessage(`deploy NFT ${NFTname} ${NFTsymbol} ${NFTmetadataLink}`)] }, config);
         let contractAddress = "";  // Variable to store the extracted contract address

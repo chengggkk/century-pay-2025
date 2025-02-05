@@ -6,7 +6,6 @@ import dbConnect from "../database/connectdb/connectdb";
 import { initializeAgent } from "../agentkit/agent";
 import { HumanMessage } from "@langchain/core/messages";
 import { sendMessage } from "../agentkit/edit";
-import { processingMessage } from "../utils";
 
 dotenv.config();
 
@@ -17,12 +16,10 @@ dotenv.config();
  * @returns {NextResponse} - Response containing the wallet creation message.
  */
 export const send = async (channelId: string, fromId: string, ToId: string, amount: string) => {
-  await sendMessage(channelId, processingMessage);
   const cleanToId = ToId.replace(/[^0-9]/g, "");
   const amountFloat = parseFloat(amount);
 
   try {
-    await sendMessage(channelId, processingMessage);
     console.log(fromId, ToId, amount);
     await dbConnect();
     const result = await WalletModel.findOne({ user: cleanToId });

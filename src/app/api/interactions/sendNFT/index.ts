@@ -5,7 +5,6 @@ import { initializeAgent } from "../agentkit/agent";
 import { HumanMessage } from "@langchain/core/messages";
 import { sendMessage } from "../agentkit/edit";
 import wallet from "../database/models/wallet";
-import { processingMessage } from "../utils";
 
 dotenv.config();
 
@@ -20,7 +19,6 @@ dotenv.config();
  */
 export const sendNFT = async (channel_id: string, userId: string, receiveAddress: string, contractAddress: string, tokenId: string) => {
     try {
-        await sendMessage(channel_id, processingMessage);
         const { agent, config } = await initializeAgent(userId);
         const from_address = await wallet.findOne({ user: userId });
         if (receiveAddress.startsWith("<@")) {
@@ -39,9 +37,6 @@ export const sendNFT = async (channel_id: string, userId: string, receiveAddress
             } else if ("tools" in chunk) {
                 const response = chunk.tools.messages[0].content;
                 console.log("tools", response);
-                await sendMessage(channel_id, {
-                    content: response,
-                });
 
             }
         }
