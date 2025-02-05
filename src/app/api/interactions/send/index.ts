@@ -1,13 +1,8 @@
-import { CdpAgentkit } from "../agentkit/cdp-agentkit-core";
 import WalletModel from "../database/models/wallet";
 import dotenv from "dotenv";
 import { InteractionResponseType } from "discord-interactions";
 import { NextResponse } from "next/server";
 import dbConnect from "../database/connectdb/connectdb";
-import transaction from "../database/models/transaction";
-import { GetBalanceInput, getBalance } from "../agentkit/cdp-agentkit-core/actions/cdp/get_balance";
-import { get } from "http";
-import { agentkit } from "../agentkit";
 import { initializeAgent } from "../agentkit/agent";
 import { HumanMessage } from "@langchain/core/messages";
 import { sendMessage } from "../agentkit/edit";
@@ -22,6 +17,7 @@ dotenv.config();
  * @returns {NextResponse} - Response containing the wallet creation message.
  */
 export const send = async (channelId: string, fromId: string, ToId: string, amount: string) => {
+  await sendMessage(channelId, processingMessage);
   const cleanToId = ToId.replace(/[^0-9]/g, "");
   const amountFloat = parseFloat(amount);
 

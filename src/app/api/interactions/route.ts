@@ -79,8 +79,7 @@ export async function POST(request: NextRequest) {
                         flags: 64,
                     },
                 });
-            }
-            else if (name === "covalent") {
+            } else if (name === "covalent") {
                 if (options === undefined) {
                     const row = handleCovalentCommand();
                     return NextResponse.json({
