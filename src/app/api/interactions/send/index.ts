@@ -11,6 +11,7 @@ import { agentkit } from "../agentkit";
 import { initializeAgent } from "../agentkit/agent";
 import { HumanMessage } from "@langchain/core/messages";
 import { sendMessage } from "../agentkit/edit";
+import { processingMessage } from "../utils";
 
 dotenv.config();
 
@@ -25,6 +26,7 @@ export const send = async (channelId: string, fromId: string, ToId: string, amou
   const amountFloat = parseFloat(amount);
 
   try {
+    await sendMessage(channelId, processingMessage);
     console.log(fromId, ToId, amount);
     await dbConnect();
     const result = await WalletModel.findOne({ user: cleanToId });

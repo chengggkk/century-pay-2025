@@ -14,9 +14,6 @@ import { ipfs } from './ipfs';
 import { deplotnft } from './deployNFT';
 import { mintNFT } from './mintNFT';
 
-const { Client, GatewayIntentBits } = require('discord.js');
-const fs = require('fs');
-const path = require('path');
 require('dotenv').config();
 
 // export const runtime = 'edge'

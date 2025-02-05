@@ -4,6 +4,7 @@ import FormData from "form-data";
 import { initializeAgent } from "../agentkit/agent";
 import { HumanMessage } from "@langchain/core/messages";
 import { sendMessage } from "../agentkit/edit";
+import { processingMessage } from "../utils";
 
 dotenv.config();
 
@@ -16,6 +17,7 @@ dotenv.config();
  */
 export const ipfs = async (channel_id: string, userId: string, fileUrl: any) => {
     try {
+        await sendMessage(channel_id, processingMessage);
         const { agent, config } = await initializeAgent(userId);
         const stream = await agent.stream({ messages: [new HumanMessage(`upload to IPFS, image URL if ${fileUrl} and ask user to type /deploynft NFTname NFTsymbol NFTmetadataLink (also tell the user the metadataLink of this picture) if they want to deploy NFT`)] }, config);
         for await (const chunk of stream) {
