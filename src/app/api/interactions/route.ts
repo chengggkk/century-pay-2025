@@ -1,6 +1,5 @@
 
 // Next.js Edge API Route Handlers: https://nextjs.org/docs/app/building-your-application/routing/router-handlers#edge-and-nodejs-runtimes
-
 import { InteractionResponseType, InteractionType } from 'discord-interactions';
 import { NextResponse, type NextRequest } from 'next/server'
 import { test } from './test';
@@ -12,6 +11,10 @@ import { send } from './send';
 import { covalent } from './covalent';
 import { handleCovalentCommand } from './utils';
 import { ipfs } from './ipfs';
+import { deplotnft } from './deployNFT';
+import { mintNFT } from './mintNFT';
+
+require('dotenv').config();
 
 // export const runtime = 'edge'
 
@@ -22,10 +25,11 @@ export async function POST(request: NextRequest) {
         if (type === InteractionType.PING) {
             return new Response(JSON.stringify({ type: InteractionResponseType.PONG }));
         }
+        const userId = member?.user?.id || user?.id;
+
 
         if (type === InteractionType.APPLICATION_COMMAND) {
             const { name, options, custom_id, id, resolved } = data;
-            const userId = member?.user?.id || user?.id;
 
             if (name === "test") {
                 return test(userId);
@@ -97,6 +101,22 @@ export async function POST(request: NextRequest) {
                     });
                 }
             }
+
+            if (name === "deploynft") {
+                await deplotnft(channel_id, userId, options[0].value, options[1].value, options[2].value);
+
+                // Ask user for name and symbol customization
+                return NextResponse.json({
+                    type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+                    data: {
+                        content: `NFT is deploying`,
+                        flags: 64,
+                    },
+                });
+            }
+
+
+
             else {
                 return NextResponse.json({
                     type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
@@ -126,8 +146,25 @@ export async function POST(request: NextRequest) {
                     },
                 });
             }
+
+            if (custom_id.startsWith("mint_")) {
+                const contractAddress = custom_id.split("_")[1];
+                await mintNFT(channel_id, userId, contractAddress);
+                return NextResponse.json({
+                    type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+                    data: {
+                        content: `Minting NFT for contract ${contractAddress}...`,
+                        flags: 64,
+                    },
+                });
+            }
+
+
         } else if (type === InteractionType.MODAL_SUBMIT) {
         }
+
+
+
         else {
             return NextResponse.json({
                 type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
