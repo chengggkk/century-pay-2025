@@ -6,7 +6,6 @@ import { NFTBalancesTool } from "./nft-balances";
 import { TransactionsTool } from "./transactions";
 import { user } from "@covalenthq/ai-agent-sdk/dist/core/base";
 import { splitContent } from "../agentkit";
-import { processingMessage } from "../utils";
 
 type ChatCompletionToolMessageParam = {
     id: string;
@@ -55,7 +54,6 @@ export const covalent = async (channelId: string, query: string) => {
     if (!process.env.GOLDRUSH_API_KEY) {
         throw new Error("GOLDRUSH_API_KEY is not set");
     }
-    await sendMessage(channelId, processingMessage);
     const apiKey = process.env.GOLDRUSH_API_KEY;
     const tools = {
         tokenBalances: new TokenBalancesTool(apiKey),

@@ -5,7 +5,6 @@ import { initializeAgent } from "../agentkit/agent";
 import { HumanMessage } from "@langchain/core/messages";
 import { sendMessage } from "../agentkit/edit";
 import wallet from "../database/models/wallet";
-import { processingMessage } from "../utils";
 
 dotenv.config();
 
@@ -18,7 +17,6 @@ dotenv.config();
  */
 export const mintNFT = async (channel_id: string, userId: string, contractAddress: string) => {
     try {
-        await sendMessage(channel_id, processingMessage);
         const { agent, config } = await initializeAgent(userId);
         const receiveAddress = await wallet.findOne({ user: userId });
         console.log("receiveAddress", receiveAddress.wallet);

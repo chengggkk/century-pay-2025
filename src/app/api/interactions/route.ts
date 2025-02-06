@@ -14,6 +14,7 @@ import { ipfs } from './ipfs';
 import { deplotnft } from './deployNFT';
 import { mintNFT } from './mintNFT';
 import { sendNFT } from './sendNFT';
+import { processingMessage } from "./utils";
 
 require('dotenv').config();
 
@@ -35,51 +36,63 @@ export async function POST(request: NextRequest) {
             if (name === "test") {
                 return test(userId);
             } else if (name === "agentkit") {
-                await agentkit(channel_id, options, userId); // run in the background
-                return NextResponse.json({
+                const initialResponse = NextResponse.json({
                     type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
-                    data: {
-                        content: "The AgentKit is running",
-                        flags: 64,
-                    },
+                    data: processingMessage,
                 });
+                (async () => {
+                    await agentkit(channel_id, options, userId);
+                })();
+                return initialResponse
             } else if (name === "agentkit_twitter") {
-                await twitter(channel_id, options, userId);
-                return NextResponse.json({
+                const initialResponse = NextResponse.json({
                     type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
-                    data: {
-                        content: "The AgentKit is running",
-                        flags: 64,
-                    },
+                    data: processingMessage,
                 });
+                (async () => {
+                    await twitter(channel_id, options, userId);
+                })();
+                return initialResponse
             } else if (name === "autonome") {
-                await autonome(channel_id, options, userId);
-                return NextResponse.json({
+                const initialResponse = NextResponse.json({
                     type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
-                    data: {
-                        content: "The Autonome is running",
-                        flags: 64,
-                    },
+                    data: processingMessage,
                 });
+                (async () => {
+                    await autonome(channel_id, options, userId);
+                })();
+                return initialResponse
             }
             else if (name === "wallet") {
-                const response = await createWallet(userId); // Wait for wallet creation
-                return response; // Return the response from createWallet
+                const initialResponse = NextResponse.json({
+                    type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+                    data: processingMessage,
+                });
+                (async () => {
+                    await createWallet(userId);
+                })();
+                return initialResponse;
             }
             else if (name === "send") {
-                const response = await send(channel_id, userId, options[0].value, options[1].value); // From, To, Amount
-                return response;
+                const initialResponse = NextResponse.json({
+                    type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+                    data: processingMessage,
+                });
+                (async () => {
+                    await send(channel_id, userId, options[0].value, options[1].value);
+                })();
+                return initialResponse;
             }
             else if (name === "ipfs") {
                 console.log(resolved.attachments[`${options[0].value}`].url);
-                await ipfs(channel_id, userId, resolved.attachments[`${options[0].value}`].url);
-                return NextResponse.json({
+                const initialResponse = NextResponse.json({
                     type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
-                    data: {
-                        content: "The IPFS is running",
-                        flags: 64,
-                    },
+                    data: processingMessage,
                 });
+                (async () => {
+                    await ipfs(channel_id, userId, resolved.attachments[`${options[0].value}`].url);
+                })();
+                return initialResponse;
             } else if (name === "covalent") {
                 if (options === undefined) {
                     const row = handleCovalentCommand();
@@ -95,37 +108,31 @@ export async function POST(request: NextRequest) {
                     await covalent(channel_id, options[0].value);
                     return NextResponse.json({
                         type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
-                        data: {
-                            content: "The Covalent is running",
-                            flags: 64,
-                        },
+                        data: processingMessage,
                     });
                 }
             }
 
             if (name === "deploynft") {
-                await deplotnft(channel_id, userId, options[0].value, options[1].value, options[2].value);
-
-                // Ask user for name and symbol customization
-                return NextResponse.json({
+                const initialResponse = NextResponse.json({
                     type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
-                    data: {
-                        content: `NFT is deploying`,
-                        flags: 64,
-                    },
+                    data: processingMessage,
                 });
+                (async () => {
+                    await deplotnft(channel_id, userId, options[0].value, options[1].value, options[2].value);
+                })();
+                return initialResponse;
             }
 
             if (name === "sendnft") {
-                await sendNFT(channel_id, userId, options[0].value, options[1].value, options[2].value);
-
-                return NextResponse.json({
+                const initialResponse = NextResponse.json({
                     type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
-                    data: {
-                        content: `NFT is sending`,
-                        flags: 64,
-                    },
+                    data: processingMessage,
                 });
+                (async () => {
+                    await sendNFT(channel_id, userId, options[0].value, options[1].value, options[2].value);
+                })();
+                return initialResponse;
             }
 
 
@@ -153,23 +160,20 @@ export async function POST(request: NextRequest) {
                 await covalent(channel_id, query);
                 return NextResponse.json({
                     type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
-                    data: {
-                        content: "The Covalent is running",
-                        flags: 64,
-                    },
+                    data: processingMessage,
                 });
             }
 
             if (custom_id.startsWith("mint_")) {
                 const contractAddress = custom_id.split("_")[1];
-                await mintNFT(channel_id, userId, contractAddress);
-                return NextResponse.json({
+                const initialResponse = NextResponse.json({
                     type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
-                    data: {
-                        content: `Minting NFT for contract ${contractAddress}...`,
-                        flags: 64,
-                    },
+                    data: processingMessage,
                 });
+                (async () => {
+                    await mintNFT(channel_id, userId, contractAddress);
+                })();
+                return initialResponse
             }
 
 
