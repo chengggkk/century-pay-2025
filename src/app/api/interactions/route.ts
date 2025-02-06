@@ -29,7 +29,7 @@ export async function POST(request: NextRequest) {
         }
         const userId = member?.user?.id || user?.id;
 
-
+        
         if (type === InteractionType.APPLICATION_COMMAND) {
             const { name, options, custom_id, id, resolved } = data;
 
@@ -210,9 +210,10 @@ export async function POST(request: NextRequest) {
             }
 
 
-        } else if (type === InteractionType.MODAL_SUBMIT) {
-        }
-
+        }else if (type === InteractionType.MODAL_SUBMIT) {
+        
+        
+    }
 
 
         else {
