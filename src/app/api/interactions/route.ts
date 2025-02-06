@@ -38,10 +38,7 @@ export async function POST(request: NextRequest) {
             } else if (name === "agentkit") {
                 const initialResponse = NextResponse.json({
                     type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
-                    data: {
-                        content: "The AgentKit is running",
-                        flags: 64,
-                    },
+                    data: processingMessage,
                 });
                 (async () => {
                     await agentkit(channel_id, options, userId);
@@ -50,10 +47,7 @@ export async function POST(request: NextRequest) {
             } else if (name === "agentkit_twitter") {
                 const initialResponse = NextResponse.json({
                     type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
-                    data: {
-                        content: "The Twitter is running",
-                        flags: 64,
-                    },
+                    data: processingMessage,
                 });
                 (async () => {
                     await twitter(channel_id, options, userId);
@@ -62,10 +56,7 @@ export async function POST(request: NextRequest) {
             } else if (name === "autonome") {
                 const initialResponse = NextResponse.json({
                     type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
-                    data: {
-                        content: "The Autonome is running",
-                        flags: 64,
-                    },
+                    data: processingMessage,
                 });
                 (async () => {
                     await autonome(channel_id, options, userId);
@@ -75,10 +66,7 @@ export async function POST(request: NextRequest) {
             else if (name === "wallet") {
                 const initialResponse = NextResponse.json({
                     type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
-                    data: {
-                        content: "The Wallet is creating",
-                        flags: 64,
-                    },
+                    data: processingMessage,
                 });
                 (async () => {
                     await createWallet(userId);
@@ -88,10 +76,7 @@ export async function POST(request: NextRequest) {
             else if (name === "send") {
                 const initialResponse = NextResponse.json({
                     type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
-                    data: {
-                        content: "The Send is running",
-                        flags: 64,
-                    },
+                    data: processingMessage,
                 });
                 (async () => {
                     await send(channel_id, userId, options[0].value, options[1].value);
@@ -102,10 +87,7 @@ export async function POST(request: NextRequest) {
                 console.log(resolved.attachments[`${options[0].value}`].url);
                 const initialResponse = NextResponse.json({
                     type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
-                    data: {
-                        content: "The IPFS is running",
-                        flags: 64,
-                    },
+                    data: processingMessage,
                 });
                 (async () => {
                     await ipfs(channel_id, userId, resolved.attachments[`${options[0].value}`].url);
@@ -126,10 +108,7 @@ export async function POST(request: NextRequest) {
                     await covalent(channel_id, options[0].value);
                     return NextResponse.json({
                         type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
-                        data: {
-                            content: "The Covalent is running",
-                            flags: 64,
-                        },
+                        data: processingMessage,
                     });
                 }
             }
@@ -137,10 +116,7 @@ export async function POST(request: NextRequest) {
             if (name === "deploynft") {
                 const initialResponse = NextResponse.json({
                     type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
-                    data: {
-                        content: "The DeployNFT is running",
-                        flags: 64,
-                    },
+                    data: processingMessage,
                 });
                 (async () => {
                     await deplotnft(channel_id, userId, options[0].value, options[1].value, options[2].value);
@@ -151,10 +127,7 @@ export async function POST(request: NextRequest) {
             if (name === "sendnft") {
                 const initialResponse = NextResponse.json({
                     type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
-                    data: {
-                        content: "The SendNFT is running",
-                        flags: 64,
-                    },
+                    data: processingMessage,
                 });
                 (async () => {
                     await sendNFT(channel_id, userId, options[0].value, options[1].value, options[2].value);
@@ -187,10 +160,7 @@ export async function POST(request: NextRequest) {
                 await covalent(channel_id, query);
                 return NextResponse.json({
                     type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
-                    data: {
-                        content: "The Covalent is running",
-                        flags: 64,
-                    },
+                    data: processingMessage,
                 });
             }
 
@@ -198,10 +168,7 @@ export async function POST(request: NextRequest) {
                 const contractAddress = custom_id.split("_")[1];
                 const initialResponse = NextResponse.json({
                     type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
-                    data: {
-                        content: "The MintNFT is running",
-                        flags: 64,
-                    },
+                    data: processingMessage,
                 });
                 (async () => {
                     await mintNFT(channel_id, userId, contractAddress);
