@@ -33,11 +33,9 @@ const client = new Client({
         
           // Check if replyResponse is defined before accessing .text()
           if (replyResponse) {
-            const replyText = await replyResponse.text();
             
-            if (replyText) {
-              await message.reply(replyText);
-            }
+              await message.reply(replyResponse);
+            
           } else {
             console.error('Reply function returned undefined.');
           }

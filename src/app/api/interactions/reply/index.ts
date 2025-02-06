@@ -25,9 +25,7 @@ export const Reply = async (channel_id: string, userId: string, content:string) 
             if ("agent" in chunk) {
                 const response = chunk.agent.messages[0].content;
                 console.log("agent", response);
-                await sendMessage(channel_id, {
-                    content: response,
-                });
+                return response;
 
             } else if ("tools" in chunk) {
                 const response = chunk.tools.messages[0].content;
