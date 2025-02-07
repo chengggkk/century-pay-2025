@@ -23,8 +23,26 @@ dotenv.config();
 export const deplotnft = async (channel_id: string, userId: string, NFTname: string, NFTsymbol: string, NFTmetadataLink: string) => {
     try {
         const { agent, config } = await initializeAgent(userId);
-        const stream = await agent.stream({ messages: [new HumanMessage(`deploy NFT ${NFTname} ${NFTsymbol} ${NFTmetadataLink}`)] }, config);
-        let contractAddress = "";  // Variable to store the extracted contract address
+        const stream = await agent.stream({
+            messages: [
+                new HumanMessage(`            
+            Deploy the NFT NFTname: ${NFTname} NFTsymbol: ${NFTsymbol} metadata: ${NFTmetadataLink} to the blockchain.
+            **Mark NFT details in bold and structured format:**
+            - **NFT Name:** **<NFT Name>**
+            - **NFT Symbol:** **<NFT Symbol>**
+            - **Contract Address:** Contract Address with a link to the contract address on the blockchain.
+            - **Transaction Hash:** Transaction Hash with a link to the transaction hash on the blockchain.
+
+            - **NFT Name:** **CoolNFT**
+            - **NFT Symbol:** **CNFT**
+            - **Contract Address:** [0xEda83609606BE0D80bE4660F3aDa3F7658F1C812](https://sepolia.basescan.org/address/0xEda83609606BE0D80bE4660F3aDa3F7658F1C812)
+            - **Transaction Hash:** [0x6cfe02c037f75590c9331edd93c5f1ad985c9c1b4fbcff79ee17475112371f50](https://sepolia.basescan.org/tx/0x6cfe02c037f75590c9331edd93c5f1ad985c9c1b4fbcff79ee17475112371f50)
+
+            **Ensure:**
+            - The NFT Name, NFT Symbol, Contract Address, and Transaction Hash are clearly marked in bold or in inline code blocks.
+        `)
+            ]
+        }, config); let contractAddress = "";  // Variable to store the extracted contract address
         for await (const chunk of stream) {
             if ("agent" in chunk) {
                 const response = chunk.agent.messages[0].content;
@@ -42,9 +60,6 @@ export const deplotnft = async (channel_id: string, userId: string, NFTname: str
                 } else if ("tools" in chunk) {
                     const response = chunk.tools.messages[0].content;
                     console.log("tools", response);
-                    await sendMessage(channel_id, {
-                        content: response,
-                    });
 
                 }
             }
@@ -57,7 +72,7 @@ export const deplotnft = async (channel_id: string, userId: string, NFTname: str
                     components: [
                         {
                             type: 2, // Button
-                            label: "🤑Mint NFT",
+                            label: "🤑 Mint NFT",
                             style: 1, // Primary button (blue)
                             custom_id: `mint_${contractAddress}`,
                         }
