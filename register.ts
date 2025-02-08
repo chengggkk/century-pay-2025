@@ -91,6 +91,38 @@ const AUTONOME_COMMAND = {
     ],
 };
 
+const SEND_COMMAND = {
+    name: "send",
+    description: "Send money to a user",
+    type: 1, // CHAT_INPUT
+    options: [
+        {
+            type: 3, // STRING
+            name: "to",
+            description: "User to send money to",
+            required: true,
+        },
+        {
+            type: 3, // STRING
+            name: "amount",
+            description: "Amount to send",
+            required: true,
+        },
+    ],
+};
+
+const IPFS_COMMAND = {
+    name: "ipfs",
+    description: "Upload files to IPFS",
+    options: [
+        {
+            type: 11, // ATTACHMENT
+            name: "file",
+            description: "Upload a file to IPFS",
+            required: true,
+        },
+    ],
+};
 const COVALENT_COMMAND = new SlashCommandBuilder()
     .setName("covalent")
     .setDescription("Interact with Covalent")
@@ -100,6 +132,87 @@ const COVALENT_COMMAND = new SlashCommandBuilder()
             .setRequired(false) // Optional because we have buttons
     );
 
+const DEPLOYNFT_COMMAND = {
+    name: "deploynft",
+    description: "Deploy NFT",
+    type: 1, // CHAT_INPUT
+    options: [
+        {
+            type: 3, // STRING
+            name: "name",
+            description: "Name of the NFT",
+            required: true,
+        },
+
+        {
+            type: 3, // STRING
+            name: "symbol",
+            description: "Symbol of the NFT",
+            required: true,
+        },
+
+        {
+            type: 3, // STRING
+            name: "metadata",
+            description: "Metadata Link or CID of the NFT",
+            required: true,
+        }
+    ],
+}
+
+const SENDNFT_COMMAND = {
+    name: "sendnft",
+    description: "Send NFT",
+    type: 1, // CHAT_INPUT
+    options: [
+        {
+            type: 3, // STRING
+            name: "to_address",
+            description: "User to send NFT to",
+            required: true,
+        },
+        {
+            type: 3, // STRING
+            name: "contract_address",
+            description: "Contract address of the NFT",
+            required: true,
+        },
+        {
+            type: 3, // STRING
+            name: "token_id",
+            description: "Token ID of the NFT",
+            required: true,
+        },
+    ],
+};
+
+const ZK_DEPOSIT_COMMAND = {
+    name: "zk_deposit",
+    description: "Deposit ETH to a contract to a discord user ID",
+    type: 1, // CHAT_INPUT
+    options: [
+        {
+            type: 3, // STRING
+            name: "recipient",
+            description: "Tag a discord user",
+            required: true,
+        },
+
+        {
+            type: 3, // STRING
+            name: "amount",
+            description: "Amount of ETH to send",
+            required: true,
+        },
+    ],
+}
+
+const ZK_WITHDRAW_COMMAND = {
+    name: "zk_withdraw",
+    description: "Withdraw ETH from a contract to a discord user wallet",
+    type: 1, // CHAT_INPUT
+}
+
 // Update command list
 const ALL_COMMANDS = [
     TEST_COMMAND,
@@ -107,7 +220,13 @@ const ALL_COMMANDS = [
     TWITTER_COMMAND,
     WALLET_COMMAND,
     AUTONOME_COMMAND,
-    COVALENT_COMMAND
+    SEND_COMMAND,
+    IPFS_COMMAND,
+    COVALENT_COMMAND,
+    DEPLOYNFT_COMMAND,
+    SENDNFT_COMMAND,
+    ZK_DEPOSIT_COMMAND,
+    ZK_WITHDRAW_COMMAND
 ];
 
 async function main() {
@@ -119,3 +238,4 @@ main().then(() => {
 }).catch((error) => {
     console.error("Failed to install commands: ", error);
 });
+

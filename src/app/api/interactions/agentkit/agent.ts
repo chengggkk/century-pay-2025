@@ -4,12 +4,13 @@ import { MemorySaver } from "@langchain/langgraph";
 import { tool } from "@langchain/core/tools";
 import { createReactAgent } from "@langchain/langgraph/prebuilt";
 import { ChatOpenAI } from "@langchain/openai";
-import * as dotenv from "dotenv";
 import { z } from "zod";
 import { SIGN_MESSAGE_PROMPT, signMessage } from "./sign";
 import dbConnect from "../database/connectdb/connectdb";
-import  walletModel  from "../database/models/wallet";
-import { generateSnarkjsProof, SNARKJS_PROMPT, SnarkjsInput } from "./zk";
+import walletModel from "../database/models/wallet";
+import { IPFS_UPLOAD_PROMPT, IpfsInput, ipfsUpload } from "./ipfs";
+import { ZkDepositAction } from "./zk/deposit";
+import { ZkWithdrawAction } from "./zk/withdraw";
 
 
 // dotenv.config();
@@ -108,17 +109,28 @@ export async function initializeAgent(userId: string) {
     },
     agentkit,
   );
-  const snarkjsMultipler2Tool = new CdpTool(
+  const ipfsUploadTool = new CdpTool(
     {
-      name: "snarkjs_multipler2",
-      description: SNARKJS_PROMPT,
-      argsSchema: SnarkjsInput,
-      func: generateSnarkjsProof,
+      name: "ipfs_upload",
+      description: IPFS_UPLOAD_PROMPT,
+      argsSchema: IpfsInput,
+      func: ipfsUpload,
     },
     agentkit,
   );
+  const zkDepositTool = new CdpTool(
+    new ZkDepositAction(),
+    agentkit,
+  );
+  const zkWithdrawTool = new CdpTool(
+    new ZkWithdrawAction(),
+    agentkit,
+  );
+
   tools.push(signMessageTool);
-  tools.push(snarkjsMultipler2Tool);
+  tools.push(ipfsUploadTool);
+  tools.push(zkDepositTool);
+  tools.push(zkWithdrawTool);
 
   // Store buffered conversation history in memory
   const memory = new MemorySaver();
