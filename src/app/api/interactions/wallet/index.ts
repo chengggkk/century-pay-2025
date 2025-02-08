@@ -44,6 +44,8 @@ export const createWallet = async (channelId: string, userId: string) => {
         }
       }
     } else {
+
+      
       // Generate a new wallet using CDP AgentKit
       const agentkit = await CdpAgentkit.configureWithWallet({
         networkId: process.env.NETWORK_ID || "base-sepolia",
@@ -60,11 +62,28 @@ export const createWallet = async (channelId: string, userId: string) => {
 
       await newWallet.save();
 
-      // Return response with the newly created wallet address
-      return sendMessage(channelId, {
-        content: `✅ Your wallet has been created: \`${generatedWallet}\``,
-        flags: 64, // Private response
-      });
+      const { agent, config } = await initializeAgent(userId);
+      const stream = await agent.stream({
+        messages: [new HumanMessage(`the wallet has been created ${generatedWallet}
+        return format message:
+        Wallet created successfully \n
+        - 👛Your wallet address is: defaultAddressId
+        - Network: base-sepolia
+        `)]
+      }, config);
+
+      for await (const chunk of stream) {
+        if ("agent" in chunk) {
+          const response = chunk.agent.messages[0].content;
+          console.log("agent", response);
+          await sendMessage(channelId, {
+            content: response,
+          });
+        } else if ("tools" in chunk) {
+          const response = chunk.tools.messages[0].content;
+          console.log("tools", response);
+        }
+      }
     }
 
   } catch (error) {
