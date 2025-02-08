@@ -24,15 +24,15 @@ export const mintNFT = async (channel_id: string, userId: string, contractAddres
             messages: [new HumanMessage(`
             mint NFT ${contractAddress} to ${receiveAddress.wallet}, if user do not have wallet, tell user to use \`\`\`/wallet\`\`\` to create wallet. 
             **Formatting Instructions:**
-            - Mint NFT: (NFT Contract Address)(NFT Token ID)
+            - Mint NFT: [NFT Contract Address](contractAddressURL) Token ID: 0
             to
             - (Receiver Address)
             Transaction Hash: [Transaction Hash](Transaction Hash URL)
               
             **Example Output:**
-            - Mint NFT: [0xEda83609606BE0D80bE4660F3aDa3F7658F1C812](1)
+            🤑**Mint NFT:** [0xEda83609606BE0D80bE4660F3aDa3F7658F1C812](https://sepolia.basescan.org/address/0xEda83609606BE0D80bE4660F3aDa3F7658F1C812) Token ID: 0
             to
-            - [0xEda83609606BE0D80bE4660F3aDa3F7658F1C812]
+            **0xEda83609606BE0D80bE4660F3aDa3F7658F1C812**
             Transaction Hash: [0x6cfe02c037f75590c9331edd93c5f1ad985c9c1b4fbcff79ee17475112371f50](https://sepolia.basescan.org/tx/0x76acd481d31718315664a024b9a26f09c7c9d5b5da5dc79500f71973292c6f5f)
 
             `)]
