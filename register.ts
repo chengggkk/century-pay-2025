@@ -186,6 +186,33 @@ const SENDNFT_COMMAND = {
     ],
 };
 
+const ZK_DEPOSIT_COMMAND = {
+    name: "zk_deposit",
+    description: "Deposit ETH to a contract to a discord user ID",
+    type: 1, // CHAT_INPUT
+    options: [
+        {
+            type: 3, // STRING
+            name: "recipient",
+            description: "Tag a discord user",
+            required: true,
+        },
+
+        {
+            type: 3, // STRING
+            name: "amount",
+            description: "Amount of ETH to send",
+            required: true,
+        },
+    ],
+}
+
+const ZK_WITHDRAW_COMMAND = {
+    name: "zk_withdraw",
+    description: "Withdraw ETH from a contract to a discord user wallet",
+    type: 1, // CHAT_INPUT
+}
+
 // Update command list
 const ALL_COMMANDS = [
     TEST_COMMAND,
@@ -198,6 +225,8 @@ const ALL_COMMANDS = [
     COVALENT_COMMAND,
     DEPLOYNFT_COMMAND,
     SENDNFT_COMMAND,
+    ZK_DEPOSIT_COMMAND,
+    ZK_WITHDRAW_COMMAND
 ];
 
 async function main() {

@@ -15,6 +15,8 @@ import { deplotnft } from './deployNFT';
 import { mintNFT } from './mintNFT';
 import { sendNFT } from './sendNFT';
 import { processingMessage } from "./utils";
+import { zkDeposit } from './zk_deposit';
+import { zkWithdraw } from './zk_withdraw';
 
 require('dotenv').config();
 
@@ -29,7 +31,6 @@ export async function POST(request: NextRequest) {
         }
         const userId = member?.user?.id || user?.id;
 
-        
         if (type === InteractionType.APPLICATION_COMMAND) {
             const { name, options, custom_id, id, resolved } = data;
 
@@ -113,7 +114,7 @@ export async function POST(request: NextRequest) {
                 }
             }
 
-            if (name === "deploynft") {
+            else if (name === "deploynft") {
                 const initialResponse = NextResponse.json({
                     type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
                     data: processingMessage,
@@ -124,13 +125,33 @@ export async function POST(request: NextRequest) {
                 return initialResponse;
             }
 
-            if (name === "sendnft") {
+            else if (name === "sendnft") {
                 const initialResponse = NextResponse.json({
                     type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
                     data: processingMessage,
                 });
                 (async () => {
                     await sendNFT(channel_id, userId, options[0].value, options[1].value, options[2].value);
+                })();
+                return initialResponse;
+            }
+            else if (name === "zk_deposit") {
+                const initialResponse = NextResponse.json({
+                    type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+                    data: processingMessage,
+                });
+                (async () => {
+                    await zkDeposit(channel_id, userId, options[0].value, options[1].value);
+                })();
+                return initialResponse;
+            }
+            else if (name === "zk_withdraw") {
+                const initialResponse = NextResponse.json({
+                    type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+                    data: processingMessage,
+                });
+                (async () => {
+                    await zkWithdraw(channel_id, userId);
                 })();
                 return initialResponse;
             }
@@ -177,10 +198,15 @@ export async function POST(request: NextRequest) {
             }
 
 
-        }else if (type === InteractionType.MODAL_SUBMIT) {
-        
-        
-    }
+        } else if (type === InteractionType.MODAL_SUBMIT) {
+            return NextResponse.json({
+                type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+                data: {
+                    content: "Not implemented",
+                    flags: 64,
+                },
+            });
+        }
 
 
         else {

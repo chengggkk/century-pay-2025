@@ -1,0 +1,1 @@
+export const ZKPoseidonDepositAddress = "0x7bf3ee9a6e4a7172d5916cdb8e501346262b3d78"
