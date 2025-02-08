@@ -1,11 +1,12 @@
 import { sendMessage } from "../agentkit/edit";
 import { Agent, Tool } from "@covalenthq/ai-agent-sdk";
 import { StateFn } from "@covalenthq/ai-agent-sdk/dist/core/state";
-import { TokenBalancesTool } from "./token-balances";
-import { NFTBalancesTool } from "./nft-balances";
-import { TransactionsTool } from "./transactions";
+import { TokenBalancesTool } from "@covalenthq/ai-agent-sdk";
+import { NFTBalancesTool } from "@covalenthq/ai-agent-sdk";
+import { TransactionsTool } from "@covalenthq/ai-agent-sdk";
 import { user } from "@covalenthq/ai-agent-sdk/dist/core/base";
 import { splitContent } from "../agentkit";
+import { HistoryDailyPortfolioTool } from "./historyDailyProfolio";
 
 type ChatCompletionToolMessageParam = {
     id: string;
@@ -59,6 +60,7 @@ export const covalent = async (channelId: string, query: string) => {
         tokenBalances: new TokenBalancesTool(apiKey),
         nftBalances: new NFTBalancesTool(apiKey),
         transactions: new TransactionsTool(apiKey),
+        historyDailyPortfolio: new HistoryDailyPortfolioTool(apiKey),
     };
 
     const agent = new Agent({

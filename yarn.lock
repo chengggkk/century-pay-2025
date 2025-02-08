@@ -41,10 +41,10 @@
     secp256k1 "^5.0.0"
     viem "^2.21.26"
 
-"@covalenthq/ai-agent-sdk@^0.2.0":
-  version "0.2.2"
-  resolved "https://registry.npmjs.org/@covalenthq/ai-agent-sdk/-/ai-agent-sdk-0.2.2.tgz"
-  integrity sha512-seNhP7AT+20smMS5DX6a01jucbl8u0I29vh/vK1jlAPthkBXkB00tbaLZR4+gOYNx+loa/NaOs/g7tdK34OXBw==
+"@covalenthq/ai-agent-sdk@^0.2.6":
+  version "0.2.6"
+  resolved "https://registry.yarnpkg.com/@covalenthq/ai-agent-sdk/-/ai-agent-sdk-0.2.6.tgz#258e8bb54b07b07be66b50f0f2f502ceda61ec55"
+  integrity sha512-QdUC/7kUYjkK+y70xuHWbhdaXZH4P0QX4aLveSLRbfHb6+pYirm7nZrvzBkIrGJNO9ZJQ9UraXZJmd81UhmdPQ==
   dependencies:
     "@covalenthq/client-sdk" "^2.2.3"
     commander "^13.1.0"

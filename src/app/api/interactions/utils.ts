@@ -17,6 +17,12 @@ export function handleCovalentCommand() {
                 "label": "What NFTs does address karanpargal.eth own on eth-mainnet?...",
                 "style": 2
             },
+            {
+                "type": 2,
+                "custom_id": "covalent_history_daily_portfolio",
+                "label": "Get daily profolio balance for an address karanpargal.eth...",
+                "style": 3
+            }
         ]
     }
 
