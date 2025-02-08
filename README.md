@@ -1,12 +1,78 @@
 # Century Pay 2025
 
+Century Pay 2025 is an **AI-powered Discord bot** that simplifies on-chain transactions and off-chain requests for users. It leverages Discord's **social features**, making it effortless for users to interact and engage with others.
+
+Originally launched last year, [Century Pay](https://github.com/chengggkk/century-pay) enabled users to connect wallets, send ETH to Discord users, and execute transactions via AA wallets. Now, Century Pay 2025 takes it even further—with AI-driven automation, users can simply describe their request, and the bot seamlessly executes the transaction, making the experience smoother than ever. 🚀
+
+## Example Features
+
+Century Pay 2025 offers several powerful features, including:
+
+-   **📂 IPFS Uploads**: Users can simply _upload an image through Discord_, and the AI agent will automatically handle the IPFS deployment. This eliminates the need for users to set up an IPFS server or write deployment code, making the process effortless.
+-   **🎨 NFT Transactions**: Century Pay 2025 simplifies NFT deployment, minting, and transfers directly within Discord. Users only need to provide basic NFT details (e.g., name, symbol, and metadata URL) to deploy an NFT effortlessly.
+    With Discord integration, users can:
+    -   Share a **"Mint"** button with others to let them mint NFTs easily.
+    -   `@Tag` other users to seamlessly transfer NFTs within the chat.
+-   **🔒 ZK Integration**: Users can now generate zero-knowledge proofs (ZKPs) to interact with smart contracts seamlessly. Century Pay 2025 includes pre-built ZK circuits: Please checkout out [circuits](./circuits/README.md). It makes ZK applications more accessible and easy to use within familiar platforms like Discord.
+
+## Technology Stack
+
+-   [Agentkit](https://github.com/coinbase/agentkit): Agentkit is a framework for building AI agents. We enables the following features with Agentkit:
+    -   **IPFS Uploads**: See [IPFS Uploads](./src/app/api/interactions/agentkit/ipfs.ts)
+    -   **NFT Transactions**: See [NFT Transactions](./src/app/api/interactions/deployNFT/index.ts)
+    -   **ZK Integration**: See [ZK Integration](./src/app/api/interactions/agentkit/zk/withdraw.ts)
+-   [Base](https://www.base.org/): We deployed the ZK Poseidon Deposit smart contract on Base. See more details [here](./contracts/README.md).
+-   [Automone](https://dev.autonome.fun/): We connect the Century Pay 2025 discord bot to a Automone agent. See more details [here](./src/app/api/interactions/autonome/index.ts)
+-   [Covalent](https://github.com/covalenthq/ai-agent-sdk): We connect the Century Pay 2025 discord bot to a Covalent agent. We enables the following features with Covalent:
+    -   **TokenBalancesTool**: See [TokenBalancesTool](./src/app/api/interactions/covalent/index.ts)
+    -   **NFTBalancesTool**: See [NFTBalancesTool](./src/app/api/interactions/covalent/index.ts)
+    -   **TransactionsTool**: See [TransactionsTool](./src/app/api/interactions/covalent/index.ts)
+
+## ZK Poseidon Deposit Idea
+
+To address the issue where a user hasn’t connected a wallet but someone else wants to send them ETH, we propose using a smart contract secured with zero-knowledge proofs (ZKPs). This ensures that only the intended recipient—who can generate the correct Poseidon hash—can withdraw the ETH. Below is an example workflow.
+
+![ZKP flow](./public/ZKP_flow.png)
+
+We integrated the ZK Poseidon Deposit smart contract with AI bots. It makes the ZKP more accessible and easy to use without installing any `snarkjs` or `circom` locally and even without understanding the ZKP.
+
+In the future, we plan to integrate more ZKP applications with AI bots to make the privacy and security features more accessible to users. For example,
+
+-   Tornado Cash enables anonymous transactions.
+-   Semaphore enables anonymous membership control.
+-   MACI enables anonymous voting.
+
+## Features
+
+### `/send`
+
+### `/wallet`
+
+### `/twitter`
+
+### `/agentkit`
+
+### `/autonome`
+
+### `/covalent`
+
+### `/ipfs`
+
+### `/deployNFT`
+
+### `/sendNFT`
+
+### `/zk_deposit`
+
+### `/zk_withdraw`
+
 ## Install
 
 ```bash
 yarn
 ```
 
-- Create a .env file
+-   Create a .env file
 
 ```bash
 cp .env.example .env
@@ -14,13 +80,13 @@ cp .env.example .env
 
 See: [Discord Docs: Fetching your credentials](https://discord.com/developers/docs/quick-start/getting-started#fetching-your-credentials)
 
-- Register commands
+-   Register commands
 
 ```bash
 yarn register
 ```
 
-- Run the server
+-   Run the server
 
 ```bash
 yarn dev
@@ -28,15 +94,16 @@ yarn dev
 
 ## Deploy on discord
 
-- Start an ngrok tunnel
+-   Start an ngrok tunnel
 
 ```bash
 ngrok http 3000
 ```
 
-- Update the webhook url in the discord dashboard
+-   Update the webhook url in the discord dashboard
 
 Example url
+
 ```sh
 https://<ngrok-id>.ngrok.app/api/interactions
 ```
