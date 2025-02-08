@@ -25,7 +25,14 @@ export const sendNFT = async (channel_id: string, userId: string, receiveAddress
             const user = await wallet.findOne({ user: receiveAddress.slice(2, -1) });
             receiveAddress = user.wallet;
         }
-        const stream = await agent.stream({ messages: [new HumanMessage(`send NFT ${contractAddress} ${tokenId} to ${receiveAddress} from ${from_address.wallet}(defaultAddressId), if the NFT is owned by ${from_address.wallet}`)] }, config);
+        const stream = await agent.stream({ messages: [new HumanMessage(`send NFT ${contractAddress} ${tokenId} to ${receiveAddress} from ${from_address.wallet}(defaultAddressId), if the NFT is owned by ${from_address.wallet}
+        return format message (if the NFT is owned by the user) (only return the message below):
+        - 📤 Sent NFT ${contractAddress} / TokenId: ${tokenId} to ${receiveAddress}
+        - Transaction Hash: [Transaction Hash](Transaction Hash URL)
+
+        return format message (if the NFT is not owned by the user) (only return the message below):
+        ❌This NFT is not owned by you
+            `)] }, config);
         for await (const chunk of stream) {
             if ("agent" in chunk) {
                 const response = chunk.agent.messages[0].content;
