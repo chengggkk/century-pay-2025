@@ -35,7 +35,11 @@ export const send = async (channelId: string, fromId: string, ToId: string, amou
     }
     const { defaultAddressId } = JSON.parse(result.wallet);
     const { agent, config } = await initializeAgent(fromId);
-    const stream = await agent.stream({ messages: [new HumanMessage(`send ${amountFloat} ETH to ${defaultAddressId}`)] }, config);
+    const stream = await agent.stream({ messages: [new HumanMessage(`send ${amountFloat} ETH to ${defaultAddressId}
+      return format message(only return the message below):
+      - 📤 Sent ${amountFloat} ETH to ${defaultAddressId}
+      - Transaction Hash: [Transaction Hash](Transaction Hash URL)
+      `)] }, config);
     for await (const chunk of stream) {
       if ("agent" in chunk) {
         const response = chunk.agent.messages[0].content;
@@ -47,9 +51,6 @@ export const send = async (channelId: string, fromId: string, ToId: string, amou
       } else if ("tools" in chunk) {
         const response = chunk.tools.messages[0].content;
         console.log("tool", response);
-        await sendMessage(channelId, {
-          content: response,
-        });
 
       }
     }
