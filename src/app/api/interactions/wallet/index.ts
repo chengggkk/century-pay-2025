@@ -65,7 +65,7 @@ export const createWallet = async (channelId: string, userId: string) => {
       const { agent, config } = await initializeAgent(userId);
       const stream = await agent.stream({
         messages: [new HumanMessage(`the wallet has been created ${generatedWallet}
-        return format message:
+        format message (only return the message below):
         Wallet created successfully \n
         - 👛Your wallet address is: defaultAddressId
         - Network: base-sepolia
