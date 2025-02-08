@@ -20,7 +20,7 @@ export function handleCovalentCommand() {
             {
                 "type": 2,
                 "custom_id": "covalent_history_daily_portfolio",
-                "label": "Get daily profolio balance for an address karanpargal.eth...",
+                "label": "Get daily portfolio balance for an address karanpargal.eth...",
                 "style": 3
             }
         ]

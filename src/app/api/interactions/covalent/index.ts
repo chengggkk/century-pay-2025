@@ -6,7 +6,7 @@ import { NFTBalancesTool } from "@covalenthq/ai-agent-sdk";
 import { TransactionsTool } from "@covalenthq/ai-agent-sdk";
 import { user } from "@covalenthq/ai-agent-sdk/dist/core/base";
 import { splitContent } from "../agentkit";
-import { HistoryDailyPortfolioTool } from "./historyDailyProfolio";
+import { HistoryDailyPortfolioTool } from "./historyDailyPortfolio";
 
 type ChatCompletionToolMessageParam = {
     id: string;

@@ -177,7 +177,7 @@ export async function POST(request: NextRequest) {
                 query = "What NFTs does address karanpargal.eth own on eth-mainnet?..."
             }
             else if (custom_id === "covalent_history_daily_portfolio") {
-                query = "Get daily profolio balance for an address karanpargal.eth for the last 15 days..."
+                query = "Get daily portfolio balance for an address karanpargal.eth for the last 15 days..."
             }
 
             if (custom_id.startsWith("covalent_")) {
