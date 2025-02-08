@@ -70,7 +70,7 @@ export async function POST(request: NextRequest) {
                     data: processingMessage,
                 });
                 (async () => {
-                    await createWallet(userId);
+                    await createWallet(channel_id, userId);
                 })();
                 return initialResponse;
             }

@@ -1,9 +1,8 @@
 import { CdpAgentkit } from "../agentkit/cdp-agentkit-core";
 import wallet from "../database/models/wallet";
 import dotenv from "dotenv";
-import { InteractionResponseType } from "discord-interactions";
-import { NextResponse } from "next/server";
 import dbConnect from "../database/connectdb/connectdb";
+import { sendMessage } from "../agentkit/edit";
 
 dotenv.config();
 
@@ -12,7 +11,7 @@ dotenv.config();
  * @param {string} userId - The Discord user ID.
  * @returns {NextResponse} - Response containing the wallet creation message.
  */
-export const createWallet = async (userId: string) => {
+export const createWallet = async (channelId: string, userId: string) => {
   try {
     await dbConnect();
 
@@ -21,13 +20,10 @@ export const createWallet = async (userId: string) => {
 
     if (existingWallet) {
       // Return the existing wallet address
-      return NextResponse.json({
-        type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
-        data: {
-          content: `Already have a wallet \n 👛Your wallet address is: \`${existingWallet.wallet}\``,
-          flags: 64, // Private respons
-        },
-      });
+      await sendMessage(channelId, {
+        content: `Already have a wallet \n 👛Your wallet address is: \`${existingWallet.wallet}\``,
+        flags: 64, // Private respons
+      })
     }
 
     // Generate a new wallet using CDP AgentKit
@@ -47,21 +43,15 @@ export const createWallet = async (userId: string) => {
     await newWallet.save();
 
     // Return response with the newly created wallet address
-    return NextResponse.json({
-      type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
-      data: {
-        content: `✅ Your wallet has been created: \`${generatedWallet}\``,
-        flags: 64, // Private response
-      },
+    return sendMessage(channelId, {
+      content: `✅ Your wallet has been created: \`${generatedWallet}\``,
+      flags: 64, // Private response
     });
   } catch (error) {
     console.error("❌ Error generating wallet:", error);
-    return NextResponse.json({
-      type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
-      data: {
-        content: "❌ Failed to generate a wallet. Please try again.",
-        flags: 64,
-      },
+    return sendMessage(channelId, {
+      content: "❌ Failed to generate a wallet. Please try again.",
+      flags: 64,
     });
   }
 };
