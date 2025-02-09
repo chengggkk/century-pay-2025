@@ -30,7 +30,16 @@ app.post("/chat", async (req, res) => {
         res.json({ text: "Wallet data or mnemonic phrase not found" });
         return;
     }
-    const { agent, config } = await initializeAgentWithWallet(walletData, mnemonicPhrase);
+    let agent, config;
+    if (mnemonicPhrase) {
+        const result = await initializeAgentWithWallet(undefined, mnemonicPhrase);
+        agent = result.agent;
+        config = result.config;
+    } else {
+        const result = await initializeAgentWithWallet(walletData);
+        agent = result.agent;
+        config = result.config;
+    }
     const stream = await agent.stream({
         messages: [new HumanMessage(` ${req.body.text}`)]
     }, config);
