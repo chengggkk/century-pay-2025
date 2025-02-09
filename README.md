@@ -45,41 +45,75 @@ In the future, we plan to integrate more ZKP applications with AI bots to make t
 ## Features
 
 ### `/send`
-![send](./public/send.png)
 
-- response
-![sendresult](./public/sendresult.png)
+Users can send ETH to other discord users with simply `@tag` a user and the amount of ETH they want to send.
+
+-   Input
+
+    -   `to` : the user to send ETH to
+    -   `amount` : the amount of ETH to send
+
+-   command
+    ![send](https://i.imgur.com/Jduh49e.gif)
+
+-   response
+    ![sendresult](./public/sendresult.png)
 
 ### `/wallet`
-![wallet](./public/wallet.png)
 
-- create
+If a user hasn't connected a wallet, they can create a wallet with the `/wallet` command.
+If a user has connected a wallet, they can check the balance of their wallet with the `/wallet` command.
+
+-   command
+    ![wallet](./public/wallet.png)
+
+-   create
     ![walletcreate](./public/walletcreate.png)
-- check balance
+-   check balance
     ![walletcheck](./public/walletcheck.png)
-### `/twitter`
 
 ### `/agentkit`
+
+The agentkit command allows users to interact with the agentkit agent. It can handle the most general tasks, including the following `ipfs`, `nft`, `agentkit_twitter`, `zk_deposit`, `zk_withdraw`.
+
+-   Input
+    -   `prompt`: the task you want to perform.
+-   command
+    ![agentkit](https://i.imgur.com/7Hgf0EV.gif)
+
+### `/agentkit_twitter`
+
+The agentkit twitter command allows users to draft a tweet post and share it on twitter(X).
+
+-   Input
+    -   `prompt`: the content you want to post on twitter(X).
+-   command
+    ![agentkit_twitter](https://i.imgur.com/hsRqChY.gif)
 
 ### `/autonome`
 
 ### `/covalent`
 
 ### `/ipfs`
+
 ![ipfs](./public/ipfs.png)
 
-- response
+-   response
     ![ipfsresult](./public/ipfsresult.png)
 
 ### `/deployNFT`
+
 ![deploynft](./public/deploynft.png)
-- response
+
+-   response
     ![deploynftresult](./public/deploynftresult.png)
 
 ### `mint`
+
 ![mint](https://i.imgur.com/nmt5oaY.gif)
 
 ### `/sendNFT`
+
 <!-- ![sendnft](./public/send.png) -->
 
 ### `/zk_deposit`
