@@ -66,10 +66,10 @@ In the future, we plan to integrate more ZKP applications with AI bots to make t
 ### `/covalent`
 
 ### `/ipfs`
-<!-- ![ipfs](./public/ipfs.png) -->
+![ipfs](./public/ipfs.png)
 
-<!-- - response
-![ipfsresult](./public/ipfsresult.png) -->
+- response
+    ![ipfsresult](./public/ipfsresult.png)
 
 ### `/deployNFT`
 <!-- ![deploynft](./public/deploynft.png)
