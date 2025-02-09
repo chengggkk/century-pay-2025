@@ -109,25 +109,35 @@ The covalent command helps user use Covalent API to analyze on-chain data. And i
 
 ### `/ipfs`
 
-![ipfs](./public/ipfs.png)
+The ipfs command allows users to upload an image to IPFS.
+
+-   Input
+    -   `file`: the image you want to upload.
+-   command
+    ![ipfs](https://i.imgur.com/Jf1HZmw.gif)
 
 -   response
     ![ipfsresult](./public/ipfsresult.png)
 
 ### `/deployNFT`
 
-![deploynft](./public/deploynft.png)
+The deployNFT command allows users to deploy an NFT.
+
+-   Input
+    -   `name`: the name of the NFT.
+    -   `symbol`: the symbol of the NFT.
+    -   `metadata`: the metadata of the NFT.
+-   command
+    ![deploynft](./public/deploynft.png)
 
 -   response
     ![deploynftresult](./public/deploynftresult.png)
 
 ### `mint`
 
-![mint](https://i.imgur.com/nmt5oaY.gif)
-
-### `/sendNFT`
-
-<!-- ![sendnft](./public/send.png) -->
+After deploying an NFT, users can mint the NFT to a user with the `mint` button. The `mint` button takes the user's wallet address as input and mint the NFT to the user.
+-   command
+    ![mint](https://i.imgur.com/nmt5oaY.gif)
 
 ### `/zk_deposit`
 
