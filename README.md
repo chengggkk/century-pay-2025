@@ -31,6 +31,8 @@ Century Pay 2025 offers several powerful features, including:
 -   [Automone](https://dev.autonome.fun/): We connect the Century Pay 2025 discord bot to a Automone agent.
     -   See more details [here](./src/app/api/interactions/autonome/index.ts)
     -   See the deployment server: [autonome](./autonome.ts)
+    -   With the uploaded Autonome framework, the user can even perform the zk feature that we implemented in this project on Autonome.
+        ![autonome_zk](./public/autonome_zk.png)
 -   [Covalent](https://github.com/covalenthq/ai-agent-sdk): We connect the Century Pay 2025 discord bot to a Covalent agent. We enables the following features with Covalent:
     -   **TokenBalancesTool**: See [TokenBalancesTool](./src/app/api/interactions/covalent/index.ts)
     -   **NFTBalancesTool**: See [NFTBalancesTool](./src/app/api/interactions/covalent/index.ts)
@@ -100,6 +102,13 @@ The agentkit twitter command allows users to draft a tweet post and share it on 
     ![agentkit_twitter](https://i.imgur.com/hsRqChY.gif)
 
 ### `/autonome`
+
+The `autonome` command allows users to interact with the Autonome agent. One of the agents is the `agentkit` agent, where we deployed our Century Pay 2025 agent on Automone. So it can perform the function we defined in the `agentkit` agent. See: [zk_deposit](#zk_deposit)
+
+-   Input
+    -   `prompt`: the task you want to perform.
+-   command
+    ![autonome](https://i.imgur.com/Zk5GwEN.gif)
 
 ### `/covalent`
 
