@@ -1,8 +1,8 @@
-# Century Pay 2025
+# <img src="https://i.imgur.com/OCjOQXo.png" alt="Century Pay 2025" width="30"> Century Pay 2025
 
 <p align="center">
 <a href="https://discord.com/oauth2/authorize?client_id=1335065211597623316">
-<img alt="Static Badge" src="https://img.shields.io/badge/Add_Discord_bot-Century_Pay_2025-7289da?style=for-the-badge">
+<img alt="Static Badge" src="https://img.shields.io/badge/Add_Discord_bot-Century_Pay_2025-5865F2?style=for-the-badge">
 </a>
 </p>
 
