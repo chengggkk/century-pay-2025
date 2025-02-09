@@ -155,7 +155,7 @@ Follow the ZKP flow to deposit ETH to a user. See: [ZK Poseidon Deposit Idea](#z
 
 -   Input
 
-    -   `to` : the user to send ETH to
+    -   `recipient` : the user to send ETH to
     -   `amount` : the amount of ETH to send
 
 -   command
