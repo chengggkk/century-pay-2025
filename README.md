@@ -1,5 +1,11 @@
 # Century Pay 2025
 
+<p align="center">
+<a href="https://discord.com/oauth2/authorize?client_id=1335065211597623316">
+<img alt="Static Badge" src="https://img.shields.io/badge/Add_Discord_bot-Century_Pay_2025-7289da?style=for-the-badge">
+</a>
+</p>
+
 Century Pay 2025 is an **AI-powered Discord bot** that simplifies on-chain transactions and off-chain requests for users. It leverages Discord's **social features**, making it effortless for users to interact and engage with others.
 
 Originally launched last year, [Century Pay](https://github.com/chengggkk/century-pay) enabled users to connect wallets, send ETH to Discord users, and execute transactions via AA wallets. Now, Century Pay 2025 takes it even further—with AI-driven automation, users can simply describe their request, and the bot seamlessly executes the transaction, making the experience smoother than ever. 🚀
@@ -22,11 +28,14 @@ Century Pay 2025 offers several powerful features, including:
     -   **NFT Transactions**: See [NFT Transactions](./src/app/api/interactions/deployNFT/index.ts)
     -   **ZK Integration**: See [ZK Integration](./src/app/api/interactions/agentkit/zk/withdraw.ts)
 -   [Base](https://www.base.org/): We deployed the ZK Poseidon Deposit smart contract on Base. See more details [here](./contracts/README.md).
--   [Automone](https://dev.autonome.fun/): We connect the Century Pay 2025 discord bot to a Automone agent. See more details [here](./src/app/api/interactions/autonome/index.ts)
+-   [Automone](https://dev.autonome.fun/): We connect the Century Pay 2025 discord bot to a Automone agent.
+    -   See more details [here](./src/app/api/interactions/autonome/index.ts)
+    -   See the deployment server: [autonome](./autonome.ts)
 -   [Covalent](https://github.com/covalenthq/ai-agent-sdk): We connect the Century Pay 2025 discord bot to a Covalent agent. We enables the following features with Covalent:
     -   **TokenBalancesTool**: See [TokenBalancesTool](./src/app/api/interactions/covalent/index.ts)
     -   **NFTBalancesTool**: See [NFTBalancesTool](./src/app/api/interactions/covalent/index.ts)
     -   **TransactionsTool**: See [TransactionsTool](./src/app/api/interactions/covalent/index.ts)
+    -   **PortfolioTool**: See [PortfolioTool](./src/app/api/interactions/covalent/index.ts)
 
 ## ZK Poseidon Deposit Idea
 
@@ -136,12 +145,32 @@ The deployNFT command allows users to deploy an NFT.
 ### `mint`
 
 After deploying an NFT, users can mint the NFT to a user with the `mint` button. The `mint` button takes the user's wallet address as input and mint the NFT to the user.
+
 -   command
     ![mint](https://i.imgur.com/nmt5oaY.gif)
 
 ### `/zk_deposit`
 
+Follow the ZKP flow to deposit ETH to a user. See: [ZK Poseidon Deposit Idea](#zk-poseidon-deposit-idea)
+
+-   Input
+
+    -   `to` : the user to send ETH to
+    -   `amount` : the amount of ETH to send
+
+-   command
+    ![zk_deposit](https://i.imgur.com/gwulPcI.gif)
+-   response
+    ![zk_deposit_result](./public/zk_deposit_result.png)
+
 ### `/zk_withdraw`
+
+Follow the ZKP flow to withdraw ETH. See: [ZK Poseidon Deposit Idea](#zk-poseidon-deposit-idea)
+
+-   command
+    ![zk_withdraw](./public/zk_withdraw.png)
+-   response
+    ![zk_withdraw_result](./public/zk_withdraw_result.png)
 
 ## Install
 
