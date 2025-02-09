@@ -166,7 +166,7 @@ You can send your NFT to an address directly or send by @people in discord serve
     ![sendnft](./public/sendnft.png)
 
 -   response
-    ![sendnftresult](https://imgur.com/a/tK90APT)
+    ![sendnftresult](https://i.imgur.com/7ULrWXc.gif)
 
 ### `/zk_deposit`
 
