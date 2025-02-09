@@ -45,8 +45,10 @@ In the future, we plan to integrate more ZKP applications with AI bots to make t
 ## Features
 
 ### `/send`
+![ZKP flow](./public/send.png)
 
 ### `/wallet`
+![ZKP flow](./public/wallet.png)
 
 ### `/twitter`
 
@@ -57,10 +59,16 @@ In the future, we plan to integrate more ZKP applications with AI bots to make t
 ### `/covalent`
 
 ### `/ipfs`
+![ZKP flow](./public/ipfs.png)
 
 ### `/deployNFT`
+![ZKP flow](./public/deploynft.png)
+
+### `mint`
+![ZKP flow](./public/ZKP_flow.png)
 
 ### `/sendNFT`
+![ZKP flow](./public/send.png)
 
 ### `/zk_deposit`
 
