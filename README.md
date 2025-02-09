@@ -94,6 +94,19 @@ The agentkit twitter command allows users to draft a tweet post and share it on 
 
 ### `/covalent`
 
+The covalent command helps user use Covalent API to analyze on-chain data. And it shows some examples if `prompt` is empty.
+
+-   Input
+    -   `prompt`: the task you want to perform.
+        -   Example prompt:
+            -   Analyze the token balances for address karanpargal.eth on eth-mainnet...
+            -   What NFTs does address karanpargal.eth own on eth-mainnet?
+            -   Get daily portfolio balance for an address karanpargal.eth...
+-   command
+    ![covalent](https://i.imgur.com/OZoouPZ.gif)
+-   response
+    ![covalentresult](./public/covalentresult.png)
+
 ### `/ipfs`
 
 ![ipfs](./public/ipfs.png)
