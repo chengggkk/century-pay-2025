@@ -46,15 +46,17 @@ In the future, we plan to integrate more ZKP applications with AI bots to make t
 
 ### `/send`
 ![send](./public/send.png)
--response
+
+- response
 ![sendresult](./public/sendresult.png)
 
 ### `/wallet`
-<!-- ![wallet](./public/wallet.png)
+![wallet](./public/wallet.png)
+
 - create
-![walletcreate](./public/walletcreate.png)
+    ![walletcreate](./public/walletcreate.png)
 - check balance
-![walletcheck](./public/walletcheck.png) -->
+    ![walletcheck](./public/walletcheck.png)
 ### `/twitter`
 
 ### `/agentkit`
