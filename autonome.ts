@@ -42,7 +42,7 @@ app.post("/chat", async (req, res) => {
         config = result.config;
     }
     const stream = await agent.stream({
-        messages: [new HumanMessage(`${req.body}`)]
+        messages: [new HumanMessage(`${JSON.stringify(req.body)}`)]
     }, config);
     let finalResponse = "";
     for await (const chunk of stream) {

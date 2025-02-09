@@ -41,8 +41,9 @@ async function callAutonome(query: string) {
 export const autonome = async (channelId: string, options: any, userId: any) => {
     const query = options[0].value;
     const response = await callAutonome(query);
-    if (response.length > 0) {
-        await sendMessage(channelId, { content: `**Autonome**: ${response[0].text}` });
+    console.log("response", response);
+    if (response.text) {
+        await sendMessage(channelId, { content: `**Autonome**: ${response.text}` });
     } else {
         await sendMessage(channelId, { content: "Autonome Error: " + response });
     }

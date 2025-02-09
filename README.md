@@ -1,4 +1,10 @@
-# Century Pay 2025
+# <img src="https://i.imgur.com/OCjOQXo.png" alt="Century Pay 2025" width="30"> Century Pay 2025
+
+<p align="center">
+<a href="https://discord.com/oauth2/authorize?client_id=1335065211597623316">
+<img alt="Static Badge" src="https://img.shields.io/badge/Add_Discord_bot-Century_Pay_2025-5865F2?style=for-the-badge">
+</a>
+</p>
 
 Century Pay 2025 is an **AI-powered Discord bot** that simplifies on-chain transactions and off-chain requests for users. It leverages Discord's **social features**, making it effortless for users to interact and engage with others.
 
@@ -13,7 +19,7 @@ Century Pay 2025 offers several powerful features, including:
     With Discord integration, users can:
     -   Share a **"Mint"** button with others to let them mint NFTs easily.
     -   `@Tag` other users to seamlessly transfer NFTs within the chat.
--   **🔒 ZK Integration**: Users can now generate zero-knowledge proofs (ZKPs) to interact with smart contracts seamlessly. Century Pay 2025 includes pre-built ZK circuits: Please checkout out [circuits](./circuits/README.md). It makes ZK applications more accessible and easy to use within familiar platforms like Discord.
+-   **🔒 ZK Integration**: Users can now generate zero-knowledge proofs (ZKPs) to interact with smart contracts seamlessly. Century Pay 2025 includes pre-built ZK circuits: Please checkout out [circuits](./circuits/README.md) and [contracts](./contracts/README.md) explanation. It makes ZK applications more accessible and easy to use within familiar platforms like Discord.
 
 ## Technology Stack
 
@@ -22,11 +28,16 @@ Century Pay 2025 offers several powerful features, including:
     -   **NFT Transactions**: See [NFT Transactions](./src/app/api/interactions/deployNFT/index.ts)
     -   **ZK Integration**: See [ZK Integration](./src/app/api/interactions/agentkit/zk/withdraw.ts)
 -   [Base](https://www.base.org/): We deployed the ZK Poseidon Deposit smart contract on Base. See more details [here](./contracts/README.md).
--   [Automone](https://dev.autonome.fun/): We connect the Century Pay 2025 discord bot to a Automone agent. See more details [here](./src/app/api/interactions/autonome/index.ts)
+-   [Automone](https://dev.autonome.fun/): We connect the Century Pay 2025 discord bot to a Automone agent.
+    -   See more details [here](./src/app/api/interactions/autonome/index.ts)
+    -   See the deployment server: [autonome](./autonome.ts)
+    -   With the uploaded Autonome framework (ctp-2025: Pending Approval), the user can even perform the zk feature that we implemented in this project on Autonome.
+        ![autonome_zk](./public/autonome_zk.png)
 -   [Covalent](https://github.com/covalenthq/ai-agent-sdk): We connect the Century Pay 2025 discord bot to a Covalent agent. We enables the following features with Covalent:
     -   **TokenBalancesTool**: See [TokenBalancesTool](./src/app/api/interactions/covalent/index.ts)
     -   **NFTBalancesTool**: See [NFTBalancesTool](./src/app/api/interactions/covalent/index.ts)
     -   **TransactionsTool**: See [TransactionsTool](./src/app/api/interactions/covalent/index.ts)
+    -   **PortfolioTool**: See [PortfolioTool](./src/app/api/interactions/covalent/index.ts)
 
 ## ZK Poseidon Deposit Idea
 
@@ -44,6 +55,19 @@ In the future, we plan to integrate more ZKP applications with AI bots to make t
 
 ## Features
 
+### `/wallet`
+
+If a user hasn't connected a wallet, they can create a wallet with the `/wallet` command.
+If a user has connected a wallet, they can check the balance of their wallet with the `/wallet` command.
+
+-   command
+    ![wallet](./public/wallet.png)
+
+-   create
+    ![walletcreate](./public/walletcreate.png)
+-   check balance
+    ![walletcheck](./public/walletcheck.png)
+
 ### `/send`
 
 Users can send ETH to other discord users with simply `@tag` a user and the amount of ETH they want to send.
@@ -58,19 +82,6 @@ Users can send ETH to other discord users with simply `@tag` a user and the amou
 
 -   response
     ![sendresult](./public/sendresult.png)
-
-### `/wallet`
-
-If a user hasn't connected a wallet, they can create a wallet with the `/wallet` command.
-If a user has connected a wallet, they can check the balance of their wallet with the `/wallet` command.
-
--   command
-    ![wallet](./public/wallet.png)
-
--   create
-    ![walletcreate](./public/walletcreate.png)
--   check balance
-    ![walletcheck](./public/walletcheck.png)
 
 ### `/agentkit`
 
@@ -91,6 +102,13 @@ The agentkit twitter command allows users to draft a tweet post and share it on 
     ![agentkit_twitter](https://i.imgur.com/hsRqChY.gif)
 
 ### `/autonome`
+
+The `autonome` command allows users to interact with the Autonome agent. One of the agents is the `agentkit` agent, where we deployed our Century Pay 2025 agent on Automone. So it can perform the function we defined in the `agentkit` agent. See: [zk_deposit](#zk_deposit)
+
+-   Input
+    -   `prompt`: the task you want to perform.
+-   command
+    ![autonome](https://i.imgur.com/Zk5GwEN.gif)
 
 ### `/covalent`
 
@@ -136,6 +154,7 @@ The deployNFT command allows users to deploy an NFT.
 ### `mint`
 
 After deploying an NFT, users can mint the NFT to a user with the `mint` button. The `mint` button takes the user's wallet address as input and mint the NFT to the user.
+
 -   command
     ![mint](https://i.imgur.com/nmt5oaY.gif)
 
@@ -151,7 +170,26 @@ You can send your NFT to an address directly or send by @people in discord serve
 
 ### `/zk_deposit`
 
+Follow the ZKP flow to deposit ETH to a user. See: [ZK Poseidon Deposit Idea](#zk-poseidon-deposit-idea)
+
+-   Input
+
+    -   `recipient` : the user to send ETH to
+    -   `amount` : the amount of ETH to send
+
+-   command
+    ![zk_deposit](https://i.imgur.com/gwulPcI.gif)
+-   response
+    ![zk_deposit_result](./public/zk_deposit_result.png)
+
 ### `/zk_withdraw`
+
+Follow the ZKP flow to withdraw ETH. See: [ZK Poseidon Deposit Idea](#zk-poseidon-deposit-idea)
+
+-   command
+    ![zk_withdraw](./public/zk_withdraw.png)
+-   response
+    ![zk_withdraw_result](./public/zk_withdraw_result.png)
 
 ## Install
 

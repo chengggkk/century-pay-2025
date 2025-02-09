@@ -19,10 +19,10 @@ EXPOSE 3001
 CMD ["yarn", "autonome"]
 
 # Build the docker image with
-# docker build --platform=linux/amd64 -t autonome-agentkit-century-pay-2025 .
+# docker build --platform=linux/amd64 -t agentkit-century-pay-2025 .
 
 # Tag the image
-# docker tag autonome-agentkit-century-pay-2025:latest vivi432/autonome-agentkit-century-pay-2025:latest
+# docker tag agentkit-century-pay-2025:latest vivi432/agentkit-century-pay-2025:latest
 
 # Push the image to Docker Hub
-# docker push vivi432/autonome-agentkit-century-pay-2025:latest
+# docker push vivi432/agentkit-century-pay-2025:latest
