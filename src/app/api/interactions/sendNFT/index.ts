@@ -26,9 +26,14 @@ export const sendNFT = async (channel_id: string, userId: string, receiveAddress
             receiveAddress = user.wallet;
         }
         const stream = await agent.stream({ messages: [new HumanMessage(`send NFT ${contractAddress} ${tokenId} to ${receiveAddress} from ${from_address.wallet}(defaultAddressId), if the NFT is owned by ${from_address.wallet}
-        return format message (if the NFT is owned by the user) (only return the message below):
-        - 📤 Sent NFT ${contractAddress} / TokenId: ${tokenId} to ${receiveAddress}
+        to_address = defaultAddressId in ${receiveAddress}
+            return format message (if the NFT is owned by the user) (only return the message below):
+        - 📤 Sent NFT ${contractAddress} / TokenId: ${tokenId} to (to_address)
         - Transaction Hash: [Transaction Hash](Transaction Hash URL)
+
+        example output:
+        📤 Sent NFT 0xEda83609606BE0D80bE4660F3aDa3F7658F1C812 / TokenId: 0 to 0x9952dbfCb1e525133A6f9Fb425b9d915ecA1f534
+        Transaction Hash: [0x6cfe02c037f75590c9331edd93c5f1ad985c9c1b4fbcff79ee17475112371f50](https://sepolia.basescan.org/tx/0x6cfe02c037f75590c9331edd93c5f1ad985c9c1b4fbcff79ee17475112371f50)
 
         return format message (if the NFT is not owned by the user) (only return the message below):
         ❌This NFT is not owned by you
