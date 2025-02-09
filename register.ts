@@ -73,7 +73,7 @@ const TWITTER_COMMAND = {
 
 const WALLET_COMMAND = {
     name: "wallet",
-    description: "Create a new wallet",
+    description: "Create a new wallet / Check your wallet balance",
     type: 1, // CHAT_INPUT
 };
 
