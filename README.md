@@ -45,11 +45,16 @@ In the future, we plan to integrate more ZKP applications with AI bots to make t
 ## Features
 
 ### `/send`
-![ZKP flow](./public/send.png)
+![send](./public/send.png)
+-response
+![sendresult](./public/sendresult.png)
 
 ### `/wallet`
-![ZKP flow](./public/wallet.png)
-
+<!-- ![wallet](./public/wallet.png)
+- create
+![walletcreate](./public/walletcreate.png)
+- check balance
+![walletcheck](./public/walletcheck.png) -->
 ### `/twitter`
 
 ### `/agentkit`
@@ -59,16 +64,21 @@ In the future, we plan to integrate more ZKP applications with AI bots to make t
 ### `/covalent`
 
 ### `/ipfs`
-![ZKP flow](./public/ipfs.png)
+<!-- ![ipfs](./public/ipfs.png) -->
+
+<!-- - response
+![ipfsresult](./public/ipfsresult.png) -->
 
 ### `/deployNFT`
-![ZKP flow](./public/deploynft.png)
+<!-- ![deploynft](./public/deploynft.png)
+- response
+![deploynftresult](./public/deploynftresult.png) -->
 
 ### `mint`
-![ZKP flow](./public/ZKP_flow.png)
+<!-- ![mint](./public/mintNFT.gif) -->
 
 ### `/sendNFT`
-![ZKP flow](./public/send.png)
+<!-- ![sendnft](./public/send.png) -->
 
 ### `/zk_deposit`
 
