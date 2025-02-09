@@ -7,7 +7,8 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "yarn register && next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "autonome": "npx ts-node autonome.ts"
   },
   "dependencies": {
     "@coinbase/coinbase-sdk": "^0.17.0",

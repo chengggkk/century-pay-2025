@@ -1,7 +1,6 @@
 import { CdpAgentkit } from "./cdp-agentkit-core";
 import { CdpTool, CdpToolkit } from "./cdp-langchain";
 import { MemorySaver } from "@langchain/langgraph";
-import { tool } from "@langchain/core/tools";
 import { createReactAgent } from "@langchain/langgraph/prebuilt";
 import { ChatOpenAI } from "@langchain/openai";
 import { z } from "zod";
@@ -15,21 +14,14 @@ import { ZkWithdrawAction } from "./zk/withdraw";
 
 // dotenv.config();
 
-// Configure a file to persist the agent's CDP MPC Wallet Data
-const WALLET_DATA_FILE = "wallet_data.txt";
-
 /**
  * Initialize the agent with CDP AgentKit
  * @param userId - The user ID
  * @returns Agent executor and config
  */
 export async function initializeAgent(userId: string) {
-  // Initialize LLM
-  const llm = new ChatOpenAI({
-    model: "gpt-4o-mini",
-  });
   await dbConnect();
-  let walletDataStr: string | null = null;
+  let walletDataStr: string = "";
 
   try {
     const walletData = await walletModel.findOne({ user: userId }); // Use walletModel instead of wallet
@@ -58,36 +50,21 @@ export async function initializeAgent(userId: string) {
   } catch (error) {
     console.error("Error fetching wallet data:", error);
   }
-  // Read existing wallet data if available
-  //   if (fs.existsSync(WALLET_DATA_FILE)) {
-  //     try {
-  //       walletDataStr = fs.readFileSync(WALLET_DATA_FILE, "utf8");
-  //     } catch (error) {
-  //       console.error("Error reading wallet data:", error);
-  //       // Continue without wallet data
-  //     }
-  //   }
 
+  return initializeAgentWithWallet(walletDataStr);
+}
+
+export async function initializeAgentWithWallet(walletDataStr?: string, mnemonicPhrase?: string) {
+  // Initialize LLM
+  const llm = new ChatOpenAI({
+    model: "gpt-4o-mini",
+  });
   // Configure CDP AgentKit
   const config = {
-    cdpWalletData: walletDataStr || undefined,
+    cdpWalletData: walletDataStr,
+    mnemonicPhrase: mnemonicPhrase,
     networkId: process.env.NETWORK_ID || "base-sepolia",
   };
-
-  const getWeather = tool((input) => {
-    if (["sf", "san francisco"].includes(input.location.toLowerCase())) {
-      return "It's 60 degrees and foggy.";
-    } else {
-      return "It's 90 degrees and sunny.";
-    }
-  }, {
-    name: "get_weather",
-    description: "Call to get the current weather.",
-    schema: z.object({
-      location: z.string().describe("Location to get the weather for."),
-    })
-  })
-
 
   // Initialize CDP AgentKit
   const agentkit = await CdpAgentkit.configureWithWallet(config);
@@ -144,10 +121,6 @@ export async function initializeAgent(userId: string) {
     messageModifier:
       "You are a helpful agent that can interact onchain using the Coinbase Developer Platform AgentKit...",
   });
-
-  // Save wallet data
-  //   const exportedWallet = await agentkit.exportWallet();
-  //   fs.writeFileSync(WALLET_DATA_FILE, exportedWallet);
 
   return { agent, config: agentConfig, walletDataStr };
 }
