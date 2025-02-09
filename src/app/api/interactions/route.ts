@@ -106,11 +106,14 @@ export async function POST(request: NextRequest) {
                         }
                     });
                 } else {
-                    await covalent(channel_id, options[0].value);
-                    return NextResponse.json({
+                    const initialResponse = NextResponse.json({
                         type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
                         data: processingMessage,
                     });
+                    (async () => {
+                        await covalent(channel_id, options[0].value);
+                    })();
+                    return initialResponse;
                 }
             }
 
@@ -181,11 +184,14 @@ export async function POST(request: NextRequest) {
             }
 
             if (custom_id.startsWith("covalent_")) {
-                await covalent(channel_id, query);
-                return NextResponse.json({
+                const initialResponse = NextResponse.json({
                     type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
                     data: processingMessage,
                 });
+                (async () => {
+                    await covalent(channel_id, query);
+                })();
+                return initialResponse;
             }
 
             if (custom_id.startsWith("mint_")) {
