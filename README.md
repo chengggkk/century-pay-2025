@@ -72,12 +72,12 @@ In the future, we plan to integrate more ZKP applications with AI bots to make t
     ![ipfsresult](./public/ipfsresult.png)
 
 ### `/deployNFT`
-<!-- ![deploynft](./public/deploynft.png)
+![deploynft](./public/deploynft.png)
 - response
-![deploynftresult](./public/deploynftresult.png) -->
+    ![deploynftresult](./public/deploynftresult.png)
 
 ### `mint`
-<!-- ![mint](./public/mintNFT.gif) -->
+![mint](https://i.imgur.com/nmt5oaY.gif)
 
 ### `/sendNFT`
 <!-- ![sendnft](./public/send.png) -->
