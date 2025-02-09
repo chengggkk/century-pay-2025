@@ -19,7 +19,7 @@ Century Pay 2025 offers several powerful features, including:
     With Discord integration, users can:
     -   Share a **"Mint"** button with others to let them mint NFTs easily.
     -   `@Tag` other users to seamlessly transfer NFTs within the chat.
--   **🔒 ZK Integration**: Users can now generate zero-knowledge proofs (ZKPs) to interact with smart contracts seamlessly. Century Pay 2025 includes pre-built ZK circuits: Please checkout out [circuits](./circuits/README.md). It makes ZK applications more accessible and easy to use within familiar platforms like Discord.
+-   **🔒 ZK Integration**: Users can now generate zero-knowledge proofs (ZKPs) to interact with smart contracts seamlessly. Century Pay 2025 includes pre-built ZK circuits: Please checkout out [circuits](./circuits/README.md) and [contracts](./contracts/README.md) explanation. It makes ZK applications more accessible and easy to use within familiar platforms like Discord.
 
 ## Technology Stack
 
@@ -31,7 +31,7 @@ Century Pay 2025 offers several powerful features, including:
 -   [Automone](https://dev.autonome.fun/): We connect the Century Pay 2025 discord bot to a Automone agent.
     -   See more details [here](./src/app/api/interactions/autonome/index.ts)
     -   See the deployment server: [autonome](./autonome.ts)
-    -   With the uploaded Autonome framework, the user can even perform the zk feature that we implemented in this project on Autonome.
+    -   With the uploaded Autonome framework (ctp-2025: Pending Approval), the user can even perform the zk feature that we implemented in this project on Autonome.
         ![autonome_zk](./public/autonome_zk.png)
 -   [Covalent](https://github.com/covalenthq/ai-agent-sdk): We connect the Century Pay 2025 discord bot to a Covalent agent. We enables the following features with Covalent:
     -   **TokenBalancesTool**: See [TokenBalancesTool](./src/app/api/interactions/covalent/index.ts)
@@ -55,6 +55,19 @@ In the future, we plan to integrate more ZKP applications with AI bots to make t
 
 ## Features
 
+### `/wallet`
+
+If a user hasn't connected a wallet, they can create a wallet with the `/wallet` command.
+If a user has connected a wallet, they can check the balance of their wallet with the `/wallet` command.
+
+-   command
+    ![wallet](./public/wallet.png)
+
+-   create
+    ![walletcreate](./public/walletcreate.png)
+-   check balance
+    ![walletcheck](./public/walletcheck.png)
+
 ### `/send`
 
 Users can send ETH to other discord users with simply `@tag` a user and the amount of ETH they want to send.
@@ -69,19 +82,6 @@ Users can send ETH to other discord users with simply `@tag` a user and the amou
 
 -   response
     ![sendresult](./public/sendresult.png)
-
-### `/wallet`
-
-If a user hasn't connected a wallet, they can create a wallet with the `/wallet` command.
-If a user has connected a wallet, they can check the balance of their wallet with the `/wallet` command.
-
--   command
-    ![wallet](./public/wallet.png)
-
--   create
-    ![walletcreate](./public/walletcreate.png)
--   check balance
-    ![walletcheck](./public/walletcheck.png)
 
 ### `/agentkit`
 
