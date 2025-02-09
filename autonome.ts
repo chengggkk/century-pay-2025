@@ -23,7 +23,8 @@ app.get("/api/data", (req, res) => {
 });
 
 app.post("/chat", async (req, res) => {
-    console.log("req.body", process.env.WALLET_DATA, process.env.MNEMONIC_PHRASE);
+    console.log("env", process.env.WALLET_DATA, process.env.MNEMONIC_PHRASE);
+    console.log("req.body", req.body);
     const walletData = process.env.WALLET_DATA;
     const mnemonicPhrase = process.env.MNEMONIC_PHRASE;
     if (!walletData && !mnemonicPhrase) {
@@ -41,7 +42,7 @@ app.post("/chat", async (req, res) => {
         config = result.config;
     }
     const stream = await agent.stream({
-        messages: [new HumanMessage(` ${req.body.text}`)]
+        messages: [new HumanMessage(`${req.body}`)]
     }, config);
     let finalResponse = "";
     for await (const chunk of stream) {
