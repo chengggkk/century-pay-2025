@@ -139,6 +139,16 @@ After deploying an NFT, users can mint the NFT to a user with the `mint` button.
 -   command
     ![mint](https://i.imgur.com/nmt5oaY.gif)
 
+### `/sendnft`
+
+You can send your NFT to an address directly or send by @people in discord server
+
+-   command
+    ![sendnft](./public/sendnft.png)
+
+-   response
+    ![sendnftresult](./public/sendnftresult.png)
+
 ### `/zk_deposit`
 
 ### `/zk_withdraw`
