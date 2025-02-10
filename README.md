@@ -234,3 +234,9 @@ https://<ngrok-id>.ngrok.app/api/interactions
 ```
 
 See: [Discord Docs: Adding an interaction endpoint URL](https://discord.com/developers/docs/quick-start/getting-started#adding-an-interaction-endpoint-url)
+
+## Troubleshooting
+
+> [!NOTE]  
+> Please grant the bot the permission to send messages in the server if it is private.
+> ![grant_permission](./public/grant_access.png)
